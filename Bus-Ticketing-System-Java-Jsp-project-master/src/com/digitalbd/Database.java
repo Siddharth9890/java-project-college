@@ -1,7 +1,7 @@
 package com.digitalbd;
 import java.sql.*;
 public class Database {
-	private String hostName = "jdbc:postgresql://localhost:5432/test";
+	private String hostName = "jdbc:postgresql://localhost:5432/postgres";
 	private String userName = "postgres";
 	private String userPassword = "demo";
 	public Statement statement;

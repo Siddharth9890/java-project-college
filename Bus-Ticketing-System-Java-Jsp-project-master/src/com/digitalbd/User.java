@@ -6,10 +6,7 @@ import TicketSystemInterface.DatabaseModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
-import com.mysql.*;
 public class User implements DatabaseModel{
 	public String id,name,email,phone,password,rule,reg_date,last_activity,address;
 	public Database db;
@@ -60,7 +57,7 @@ public class User implements DatabaseModel{
 	
 	public long doLogin(String argUser,String argPass) {
 		long returnData = 0;
-		String queryString = "SELECT id from "+ this.GetTableName() + " WHERE (phone = '"+argUser+"' || email = '"+argUser+"') AND password = '"+argPass+"'";
+		String queryString = "SELECT id from "+ this.GetTableName() + " WHERE phone = '"+argUser+"' AND password = '"+argPass+"'";
 		try {
 			ResultSet result = (ResultSet) this.db.statement.executeQuery(queryString);
 			if(result.next()) {
