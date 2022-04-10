@@ -20,7 +20,7 @@ if(request.getParameter("submit") != null){
 	}else if( (userId =user.doLogin(userName,passWord)) >0){
 		session.setAttribute("isUserLogin", true);
 		user.SetUserFromId(Long.toString(userId));
-		// user.SetUserSession(session);
+		user.SetUserSession(session);
 		response.sendRedirect("Dashboard.jsp");
 	}else{
 		message = "User id or password not found!";
