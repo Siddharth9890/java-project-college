@@ -12,9 +12,12 @@ import java.util.HashMap;
 //import javax.servlet.http.HttpSession;
 import com.mysql.*;
 public class User implements DatabaseModel{
+//	these local variables map to columns in database
 	public String id,name,email,phone,password,rule,reg_date,last_activity,address;
 	public Database db;
+//	table name is users
 	String dbTable = "users";
+	
 	public String isDbConnected = "no";
 	public User(){
 		this.DefaultConstructorData();
@@ -40,7 +43,7 @@ public class User implements DatabaseModel{
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
