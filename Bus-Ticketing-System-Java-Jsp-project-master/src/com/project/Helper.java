@@ -1,4 +1,4 @@
-package com.digitalbd;
+package com.project;
 
 import java.util.HashMap;
 

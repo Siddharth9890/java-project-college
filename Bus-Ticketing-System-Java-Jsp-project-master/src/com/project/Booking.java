@@ -1,4 +1,4 @@
-package com.digitalbd;
+package com.project;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@ page import="com.digitalbd.Helper,com.digitalbd.trains,java.util.ArrayList,AllLayout.Train,java.util.Iterator" %>   
+ <%@ page import="com.project.Helper,com.project.trains,java.util.ArrayList,AllLayout.Train,java.util.Iterator" %>   
 <%@ include file="header.jsp" %>
 <%
 

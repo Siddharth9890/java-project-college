@@ -2,9 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77e89a2c-3a5a-4c03-88a8-5ba08c9c6ed0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Add.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Destinations.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Destinations.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/FindTicket.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/FindTicket.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebContent/Login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/com/digitalbd/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/digitalbd/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/PrintTicket.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/PrintTicket.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Purchase.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Purchase.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Register.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/StationList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/StationList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/TicketDisplay.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/TicketDisplay.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/TrainList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/TrainList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Booking.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Database.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Destination.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Functions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Helper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Logout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/SignUpActoin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Stations.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/trains.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Booking.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Database.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Destination.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Functions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Helper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Logout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/SignUpActoin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Stations.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/trains.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +43,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -27,11 +64,98 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/WebContent/WEB-INF" />
     <property name="project.structure.last.edited" value="Facets" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat 10.0.20" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.0.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <file path="$PROJECT_DIR$/WebContent/WEB-INF">
+          <settings>
+            <option name="CONTEXT_PATH" value="/WEB_INF" />
+          </settings>
+        </file>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="4ca8a54a-7729-4c8a-86b5-8c639fb5632d" />
+        <option name="DEPLOY_TOMCAT_APPS" value="true" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51632" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -42,6 +166,7 @@
       <option name="presentableId" value="Default" />
       <updated>1649582661871</updated>
       <workItem from="1649582666347" duration="182000" />
+      <workItem from="1649835432063" duration="1114000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="AllLayout.*,com.digitalbd.*,java.util.ArrayList,java.util.Iterator,java.util.HashMap" %>
+<%@page import="AllLayout.*,com.project.*,java.util.ArrayList,java.util.Iterator,java.util.HashMap" %>
 <%
 
 String message = "";

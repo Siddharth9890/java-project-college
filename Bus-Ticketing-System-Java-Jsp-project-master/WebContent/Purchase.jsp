@@ -1,5 +1,5 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.*,com.digitalbd.*,AllLayout.*"%>
+<%@page import="java.util.*,com.project.*,AllLayout.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%

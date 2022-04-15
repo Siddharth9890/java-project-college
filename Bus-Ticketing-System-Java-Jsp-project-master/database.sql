@@ -1,128 +1,130 @@
 DROP TABLE IF EXISTS "booking";
-DROP TABLE IF EXISTS "stations";
+DROP TABLE IF EXISTS "airports";
 DROP TABLE IF EXISTS "destinations";
-DROP TABLE IF EXISTS "trains";
+DROP TABLE IF EXISTS "flight";
 DROP TABLE IF EXISTS "users";
+DROP TABLE IF EXISTS "trains";
+DROP TABLE IF EXISTS "journeys";
+
 
 CREATE TABLE "booking"(
-    "id"  SERIAL PRIMARY KEY,
-    "destination_id" INTEGER NOT NULL,
-    "booking_date" VARCHAR(255) NOT NULL,
-    "journey_date" VARCHAR(255) NOT NULL,
-    "train_id" INTEGER NOT NULL,
-    "seat_numbers" VARCHAR(255) NOT NULL,
-    "passenger_id" INTEGER NOT NULL,
-    "number_of_seat" INTEGER NOT NULL,
-    "payment_status" VARCHAR(255) NOT NULL,
-    "status" VARCHAR(255) NOT NULL,
-    "note" VARCHAR(255) NOT NULL
+    "id" SERIAL PRIMARY KEY,
+    "destinationId" INTEGER NOT NULL,
+    "bookingDate" DATE NOT NULL,
+    "journeyDate" DATE NOT NULL,
+    "flightId" INTEGER NOT NULL,
+    "seatNumbers" VARCHAR(255) NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "numberOfSeat" INTEGER NOT NULL,
+    "paymentStatus" VARCHAR(255) CHECK
+        ("paymentStatus" IN('INCOMPLETE','COMPLETED')) NOT NULL,
+        "status" VARCHAR(255) NOT NULL,
+        "type" VARCHAR(255)
+    CHECK
+        ("type" IN('BUSINESS','NORMAL')) NOT NULL
 );
 
-CREATE TABLE "destinations"(
-    "id"  SERIAL PRIMARY KEY,
-    "station_from" INTEGER NOT NULL,
-    "station_to" INTEGER NOT NULL,
-    "train_id" INTEGER NOT NULL,
-    "time" VARCHAR(255) NOT NULL,
-    "status" VARCHAR(255) NOT NULL,
-    "fare" VARCHAR(255) NOT NULL,
-    "last_activity" TIME(0) WITHOUT TIME ZONE NOT NULL,
-    "last_modify_by" INTEGER NOT NULL,
-    "total_seat" INTEGER NOT NULL,
-    "seat_range" VARCHAR(255) NOT NULL,
-    "type" VARCHAR(255) NOT NULL
+CREATE TABLE "journeys"(
+    "id" SERIAL PRIMARY KEY,
+    "fromLocation" VARCHAR(255) NOT NULL,
+    "toLocation" VARCHAR(255) NOT NULL,
+    "flightId" VARCHAR(255) NOT NULL,
+    "departureTime" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+    "status" VARCHAR(255) CHECK
+        ("status" IN('PRE-BOOKING','BOOKING')) NOT NULL,
+        "price" DOUBLE PRECISION NOT NULL,
+        "totalSeat" INTEGER NOT NULL,
+        "seatRange" VARCHAR(255) NOT NULL,
+        "type" VARCHAR(255)
+    CHECK
+        ("type" IN('BUSINESS','NORMAL')) NOT NULL
 );
 
-CREATE TABLE "stations"(
-    "id"  SERIAL PRIMARY KEY,
+
+ALTER TABLE journeys
+DROP COLUMN type;
+
+
+CREATE TABLE "airports"(
+    "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
     "address" VARCHAR(255) NOT NULL,
-    "contact" VARCHAR(255) NOT NULL
+    "contact" INTEGER NOT NULL
 );
-CREATE TABLE "trains"(
-    "id"  SERIAL PRIMARY KEY,
+ALTER TABLE
+    "airports" ADD CONSTRAINT "airports_name_unique" UNIQUE("name");
+CREATE TABLE "flight"(
+    "id" SERIAL PRIMARY KEY,
     "code" VARCHAR(255) NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "total_seat" INTEGER NOT NULL,
-    "type" VARCHAR(255) NOT NULL
+    "totalSeats" INTEGER NOT NULL,
+    "type" VARCHAR(255) CHECK
+        ("type" IN('BUSINESS','NORMAL')) NOT NULL
 );
+ALTER TABLE
+    "flight" ADD CONSTRAINT "flight_code_unique" UNIQUE("code");
 CREATE TABLE "users"(
-    "id"  SERIAL PRIMARY KEY,
+    "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
-    "phone" VARCHAR(255) NOT NULL,
-    "address" VARCHAR(255) NOT NULL,
+    "phone" INTEGER NOT NULL,
     "password" VARCHAR(255) NOT NULL,
-    "rule" VARCHAR(255) NOT NULL,
-    "reg_date" TIME(0) WITHOUT TIME ZONE,
-    "last_activity" TIME(0) WITHOUT TIME ZONE
+    "role" VARCHAR(255) CHECK
+        ("role" IN('ADMIN','USER')) NOT NULL,
+        "regestirationDate" DATE DEFAULT CURRENT_DATE 
 );
 
+ALTER TABLE
+    "users" ADD CONSTRAINT "users_email_unique" UNIQUE("email");
+ALTER TABLE
+    "users" ADD CONSTRAINT "users_phone_unique" UNIQUE("phone");
+ALTER TABLE
+    "booking" ADD CONSTRAINT "booking_destinationid_foreign" FOREIGN KEY("destinationId") REFERENCES "journeys"("id");
+ALTER TABLE
+    "booking" ADD CONSTRAINT "booking_flightid_foreign" FOREIGN KEY("flightId") REFERENCES "flight"("id");
+ALTER TABLE
+    "booking" ADD CONSTRAINT "booking_userid_foreign" FOREIGN KEY("userId") REFERENCES "users"("id");
 
-INSERT INTO booking (id, destination_id, booking_date, journey_date, train_id, seat_numbers, passenger_id, number_of_seat, payment_status, status, note) VALUES
-(1, 11, '06-10-2018', '06-10-2018', 7, '1,2', 12, 2, 'pending', 'success', 'note'),
-(4, 11, '06-10-2018', '06-10-2018', 7, '3,4', 12, 2, 'pending', 'success', 'note'),
-(5, 16, '06-10-2018', '06-10-2018', 2, '41,42,43', 12, 3, 'pending', 'success', 'note'),
-(6, 13, '06-10-2018', '06-10-2018', 7, '57,58,59,60', 12, 4, 'pending', 'success', 'note'),
-(7, 15, '06-10-2018', '06-10-2018', 2, '21,22,23,24', 12, 4, 'pending', 'success', 'note'),
-(8, 14, '06-10-2018', '06-10-2018', 2, '1', 12, 1, 'pending', 'success', 'note'),
-(9, 14, '06-10-2018', '06-10-2018', 2, '2', 12, 1, 'pending', 'success', 'note'),
-(10, 14, '06-10-2018', '06-10-2018', 2, '2', 12, 1, 'pending', 'success', 'note'),
-(11, 14, '06-10-2018', '06-10-2018', 2, '2', 12, 1, 'pending', 'success', 'note'),
-(12, 14, '06-10-2018', '06-10-2018', 2, '2', 12, 1, 'pending', 'success', 'note'),
-(13, 12, '06-10-2018', '06-10-2018', 7, '6,7', 12, 2, 'pending', 'success', 'note'),
-(14, 12, '06-10-2018', '06-10-2018', 7, '8,9,10', 12, 3, 'pending', 'success', 'note'),
-(15, 12, '06-10-2018', '06-10-2018', 7, '8,9,10', 12, 3, 'pending', 'success', 'note'),
-(16, 12, '06-10-2018', '06-10-2018', 7, '8,9,10', 12, 3, 'pending', 'success', 'note'),
-(17, 16, '08-10-2018', '08-10-2018', 2, '41,42,43', 12, 3, 'pending', 'success', 'note'),
-(18, 16, '10-10-2018', '10-10-2018', 2, '41,42,43', 12, 3, 'pending', 'success', 'note'),
-(19, 15, '11-10-2018', '11-10-2018', 2, '21,22', 12, 2, 'pending', 'success', 'note'),
-(20, 14, '11-10-2018', '11-10-2018', 2, '1', 12, 1, 'pending', 'success', 'note'),
-(21, 27, '16-10-2018', '16-10-2018', 10, '1,2', 12, 2, 'pending', 'success', 'note'),
-(22, 27, '11-10-2018', '11-10-2018', 10, '1', 12, 1, 'pending', 'success', 'note'),
-(23, 27, '11-10-2018', '11-10-2018', 10, '2', 12, 1, 'pending', 'success', 'note'),
-(24, 30, '11-10-2018', '11-10-2018', 8, '9', 12, 1, 'pending', 'success', 'note');
+insert into users (id, name, email, phone, password, role) values (1, 'Estella', 'ekabsch0@51.la', '11352224', 'hwBMi6Mz', 'USER');
+insert into users (id, name, email, phone, password, role) values (2, 'Fedora', 'fdronsfield1@list-manage.com', '67276215', 'NJ29ll', 'USER');
+insert into users (id, name, email, phone, password, role) values (3, 'Jarib', 'jpoone2@redcross.org', '61537383', 'lvyQHDJ8j57', 'USER');
+insert into users (id, name, email, phone, password, role) values (4, 'Kenny', 'kvarah3@lulu.com', '28057271', 'c97iN5jY', 'USER');
+insert into users (id, name, email, phone, password, role) values (5, 'Dan', 'deskrick4@buzzfeed.com', '32765017', 'BVLbKN13q7n', 'ADMIN');
+insert into users (id, name, email, phone, password, role) values (6, 'Carl', 'cfirbank5@paginegialle.it', '78616936', 'qMGoiQVr', 'USER');
+insert into users (id, name, email, phone, password, role) values (7, 'Alidia', 'amccarter6@forbes.com', '19950511', 'WSPMWT', 'USER');
+insert into users (id, name, email, phone, password, role) values (8, 'Xerxes', 'xcrasswell7@lulu.com', '11029432', 'FcaMdBODCeqO', 'USER');
+insert into users (id, name, email, phone, password, role) values (9, 'Burtie', 'blarenson8@google.com.hk', '96911892', 'eGvxXkEDHx9I', 'ADMIN');
+insert into users (id, name, email, phone, password, role) values (10, 'Jermaine', 'jmartins9@google.co.uk', '31468255', 'j8ISrOR0df', 'USER');
 
-INSERT INTO destinations (id, station_from, station_to, train_id, time, status, fare, last_activity, last_modify_by, total_seat, seat_range, type) VALUES
-(11, 1, 2, 7, '40:30Am', 'active', '40', '2018-09-05 00:00:00', 0, 5, '1-5', 'up'),
-(12, 1, 3, 7, '40:30Am', 'active', '240', '2018-09-05 00:00:00', 0, 50, '6-56', 'up'),
-(13, 1, 4, 7, '40:30Am', 'active', '280', '2018-09-05 00:00:00', 0, 5, '57-61', 'up'),
-(14, 1, 2, 2, '1:20AM', 'active', '40', '2018-09-05 00:00:00', 0, 20, '1-20', 'up'),
-(15, 1, 3, 2, '1:20AM', 'active', '240', '2018-09-05 00:00:00', 0, 20, '21-40', 'up'),
-(16, 1, 4, 2, '1:20AM', 'active', '280', '2018-09-05 00:00:00', 0, 10, '41-50', 'up'),
-(17, 4, 1, 7, '2:50 AM', 'active', '240', '2018-09-05 00:00:00', 0, 20, '1-20', 'up'),
-(18, 4, 3, 7, '2:50 AM', 'active', '40', '2018-09-05 00:00:00', 0, 50, '21-50', 'up'),
-(23, 6, 4, 9, '10:5AM', 'active', '480', '2018-09-05 00:00:00', 0, 30, '21-50', 'up'),
-(25, 6, 2, 9, '10:5AM', 'active', '350', '2018-09-05 00:00:00', 0, 20, '21-50', 'up'),
-(27, 7, 1, 10, '10:5AM', 'active', '480', '2018-09-05 00:00:00', 0, 3, '1-3', 'up'),
-(28, 7, 3, 10, '10:5AM', 'active', '350', '2018-09-05 00:00:00', 0, 4, '4-8', 'up'),
-(29, 7, 4, 10, '10:5AM', 'active', '900', '2018-09-05 00:00:00', 0, 2, '9-10', 'up'),
-(30, 7, 1, 8, '6AM', 'active', '480', '2018-09-05 00:00:00', 0, 2, '9-10', 'up');
+insert into airports (id, name, address, contact) values (1, 'Carregado', '511 Charing Cross Street', '52350862');
+insert into airports (id, name, address, contact) values (2, 'Funaishikawa', '78031 Hooker Junction', '49758859');
+insert into airports (id, name, address, contact) values (3, 'Egbe', '9 Grayhawk Terrace', '99237935');
+insert into airports (id, name, address, contact) values (4, 'Zhabagly', '28987 Petterle Way', '70697118');
+insert into airports (id, name, address, contact) values (5, 'Presidente Dutra', '031 Sullivan Terrace', '47770865');
+insert into airports (id, name, address, contact) values (6, 'Campo Quijano', '482 Rockefeller Circle', '84912140');
+insert into airports (id, name, address, contact) values (7, 'Sukakarya', '3 Sunnyside Place', '89419310');
+insert into airports (id, name, address, contact) values (8, 'Mocoa', '7861 Glacier Hill Junction', '96119936');
+insert into airports (id, name, address, contact) values (9, 'Whittlesea', '5 Shopko Park', '99461222');
+insert into airports (id, name, address, contact) values (10, 'Hargeysa', '23399 Maryland Terrace', '45413813');
 
+insert into flight (code, name, "totalSeats", type) values ('2Qe-43', 'Kathrine', 3, 'BUSINESS');
+insert into flight (code, name, "totalSeats", type) values ('E5p-75', 'Constantine', 55, 'NORMAL');
+insert into flight (code, name, "totalSeats", type) values ('aYU-63', 'Melony', 47, 'NORMAL');
+insert into flight (code, name, "totalSeats", type) values ('G2w-90', 'Laverne', 20, 'BUSINESS');
+insert into flight (code, name, "totalSeats", type) values ('w6o-65', 'Huntley', 4, 'NORMAL');
+insert into flight (code, name, "totalSeats", type) values ('cir-92', 'Ardelle', 59, 'BUSINESS');
+insert into flight (code, name, "totalSeats", type) values ('Pp2-33', 'Taffy', 76, 'BUSINESS');
+insert into flight (code, name, "totalSeats", type) values ('mTF-85', 'Carlotta', 8, 'NORMAL');
+insert into flight (code, name, "totalSeats", type) values ('VjR-64', 'Arabele', 53, 'NORMAL');
+insert into flight (code, name, "totalSeats", type) values ('utr-47', 'Vida', 22, 'NORMAL');
 
-INSERT INTO stations (id, name, address, contact) VALUES
-(1, 'Dhaka', 'Dhaka, Comlapur', '01733435951'),
-(2, 'Dhaka Bimanbondor', 'Dhaka binmanbondor', '0202'),
-(3, 'Jamalpur', 'Jamalpur railstation', '01733435957'),
-(4, 'Islampur Bazar', 'Islampur , Jamalpur, Dhaka, Bangladesh', '01733'),
-(6, 'Mymensingh', 'Islampur , Jamalpur, Dhaka, Bangladesh', '01733435951'),
-(7, 'Mymensingh 2', 'Islampur , Jamalpur, Dhaka, Bangladesh', '01733435951');
-
-
-INSERT INTO trains (id, code, name, total_seat, type) VALUES
-(2, 'B207', 'Bromoputra', 560, 'intercity'),
-(3, 'j152', 'Jomuna', 650, 'intercity'),
-(4, 'SNB-59', 'Sunar Bangla', 700, 'intercity'),
-(8, '105', 'Bus 1', 10, 'F-Class'),
-(9, '106', 'Demo Bus name', 42, 'S-Chair'),
-(10, '108', 'Demo Bus name 2', 10, 'F-Class');
-
-INSERT INTO users (id, name, email, phone, address, password, rule, reg_date, last_activity) VALUES
-(6, 'Md Rukon Shekh', 'rukon@gmail.com', '253', 'dfsdsf', '123', 'admin', '2018-09-17 15:53:29', '2018-09-17 15:53:29'),
-(7, 'Md Rukon', 'rukdon@gmail.com', '0184272596763', '', '', 'passenger', '2018-09-17 16:07:40', '2018-09-17 16:07:40'),
-(8, 'Md Rukon', 'rukon@gmai.co', '0184279676399', '', '', 'passenger', '2018-09-17 16:09:44', '2018-09-17 16:09:44'),
-(9, 'Md Rukon Shekh', 'rukon36@gmail.com', '02175', 'Dhaka,Bangladesh', '123', 'passenger', '2018-09-17 16:11:32', '2018-09-17 16:11:32'),
-(10, 'Md Rukon Shekh', 'rukon.infdo@gmail.com', '8985', 'teste', '123', 'passenger', '2018-09-17 16:33:49', '2018-09-17 16:33:49'),
-(11, 'Md Rukon', 'rukons@gmail.com', '02158', 'ad', '123', 'passenger', '2018-09-17 16:35:22', '2018-09-17 16:35:22'),
-(12, 'Asad', 'asad@gmail.com', '01652', 'Asad Address', '123', 'passenger', '2018-09-17 16:38:28', '2018-09-17 16:38:28'),
-(13, 'boss', 'mushfiqur.office@gmail.com', '01756179081', 'dhaka', '12345', 'passenger', '2018-10-05 19:26:29', '2018-10-05 19:26:29');
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (1, 'Le Havre', 'Mladá Boleslav','2Qe-43', '2022/7/20', 'BOOKING', 83.22, 84, 3);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (2, 'Novyy Svit', 'Langqi', 'E5p-75','2022/9/18', 'PRE-BOOKING', 91.95, 64, 4);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (3, 'Apeldoorn', 'Yanhu', 'aYU-63','2022/3/8', 'PRE-BOOKING', 29.97, 4, 2);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (4, 'Haoxin', 'Ogod', 'G2w-90','2022/5/1', 'PRE-BOOKING', 61.21, 13, 1);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (5, 'Danxi', 'Kuala Terengganu','w6o-65', '2022/9/30', 'BOOKING', 7.26, 64, 3);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (6, 'Xiaochuan', 'Ferme-Neuve', 'cir-92','2022/6/16', 'PRE-BOOKING', 17.22, 87, 1);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (7, 'Alingsås', 'Xingguo', 'Pp2-33','2022/7/18', 'PRE-BOOKING', 57.42, 88, 2);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (8, 'Wujing', 'Tarrafal de São Nicolau', 'mTF-85','2022/4/14', 'BOOKING', 19.11, 99, 1);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (9, 'Kendayakan', 'Xingpinglu', 'VjR-64','2022/7/21', 'BOOKING', 22.43, 52, 2);
+insert into journeys (id, "fromLocation", "toLocation","flightId" ,"departureTime", status, price, "totalSeat", "seatRange") values (10, 'Presidencia Roque Sáenz Peña', 'utr-47','Tourcoing', '2022/10/12', 'BOOKING', 25.5, 41, 4);

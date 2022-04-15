@@ -1,24 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<%@ page import="com.digitalbd.Helper" %>
-<%@ page import="com.digitalbd.User" %>
+<%@ page import="com.project.Helper" %>
+<%@ page import="com.project.User" %>
 <%@ include file="header.jsp" %>
 <%
 
 if(session.getAttribute("isUserLogin") != null && (boolean) session.getAttribute("isUserLogin")){
 	response.sendRedirect("Dashboard.jsp");
 }
+
 User user = new User();
 String message = "";
-String userName = null,passWord = null;
+String userName = null,password = null;
 long userId = 0;
 if(request.getParameter("submit") != null){
 	userName = request.getParameter("phone");
-	passWord = request.getParameter("password");
-	if(userName.equals("") || passWord.equals("")){
-		message = "User name and password required!";
-	}else if( (userId =user.doLogin(userName,passWord)) >0){
+	password = request.getParameter("password");
+	if(userName.equals("") || password.equals("")){
+		message = "User name and password required    asdasdaad!";
+	}else if(userName.length()<3 || password.length()<8)
+	{
+		message = "user name length >3 and password length >8 !";
+	}
+	else if((userId =user.doLogin(userName,password)) >0){
 		session.setAttribute("isUserLogin", true);
 		user.SetUserFromId(Long.toString(userId));
 		user.SetUserSession(session);

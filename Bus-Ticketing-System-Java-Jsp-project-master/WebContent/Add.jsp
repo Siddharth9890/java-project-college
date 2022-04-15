@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.digitalbd.Helper,com.digitalbd.User,com.digitalbd.trains,java.util.*" %>
+<%@ page import="com.project.Helper,com.project.User,com.project.trains,java.util.*" %>
 <%
 	String message = "";
 	if(request.getParameter("createTrain") != null){

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.*,com.digitalbd.*,AllLayout.*" %>
+<%@page import="java.util.*,com.project.*,AllLayout.*" %>
 <div class="ticket_print_section">
 	<div class="rs_shadow single_ticket" style="background-image: url('images/ticket_bg.jpg');">
 		<div class="ticket_header">

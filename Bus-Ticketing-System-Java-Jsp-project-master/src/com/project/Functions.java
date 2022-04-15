@@ -1,4 +1,4 @@
-package com.digitalbd;
+package com.project;
 
 public class Functions {
 	public String getLocalName() {

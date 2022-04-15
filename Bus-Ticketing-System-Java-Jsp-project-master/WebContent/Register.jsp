@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.digitalbd.Helper,com.digitalbd.User" %>
+<%@ page import="com.project.Helper,com.project.User" %>
 <%
 String message = "";
 if(request.getParameter("submit") != null){
