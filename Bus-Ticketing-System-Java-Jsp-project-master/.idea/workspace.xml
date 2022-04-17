@@ -3,38 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="77e89a2c-3a5a-4c03-88a8-5ba08c9c6ed0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/Add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Add.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/Dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/Destinations.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Destinations.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/FindTicket.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/FindTicket.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebContent/Login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/PrintTicket.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/PrintTicket.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/Purchase.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Purchase.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebContent/Register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/Register.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/StationList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/StationList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/TicketDisplay.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/TicketDisplay.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/TrainList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/TrainList.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebContent/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Booking.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Database.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Destination.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Functions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Helper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Logout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/SignUpActoin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/Stations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/com/digitalbd/trains.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Booking.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Database.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Destination.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Functions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Helper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Logout.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/SignUpActoin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/Stations.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/digitalbd/trains.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/project/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/com/project/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/project/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/project/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +38,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/WebContent/WEB-INF" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -167,6 +140,7 @@
       <updated>1649582661871</updated>
       <workItem from="1649582666347" duration="182000" />
       <workItem from="1649835432063" duration="1114000" />
+      <workItem from="1650114509840" duration="597000" />
     </task>
     <servers />
   </component>

@@ -4,22 +4,34 @@
 <%
 String message = "";
 if(request.getParameter("submit") != null){
+	
 	User user = new User();
 	user.name = request.getParameter("name");
 	user.email = request.getParameter("email");
 	user.phone = request.getParameter("phone");
 	user.password = request.getParameter("password");
 	user.address = request.getParameter("address");
-	user.rule="passenger";
+	user.role="USER";
+	long userId=0;
 	message = user.CheckRegisValidation();
 	if(message == null){
-		if(!request.getParameter("email_con").equals(user.email)){
-			message = "Email are not same.";
+		if(!user.email.contains("@")){
+			message = "Email is invalid.";
 		}else if(!request.getParameter("password_con").equals(user.password)){
 			message = "Password are not same";
-		}else if(user.ResiterUser()){
-			/* session.setAttribute("islogin", true);
-			response.sendRedirect("Dashboard.jsp"); */
+		}else if(user.password.length()<8)
+		{
+			message="Password length should be greater than 8 characters";
+		}
+		else if(!(user.phone.length()==10))
+		{
+			message="Phone number should be greater than 10";
+		}
+		else if((userId=user.registerNewUser())>0){
+			 session.setAttribute("isUserLogin", true);
+			 user.getUser(Long.toString(userId));
+			 user.SetUserSession(session);
+			 response.sendRedirect("Dashboard.jsp"); 
 			message = "Registration Success! Please login";
 		}else{
 			message = "User Phone or Email Exist";
@@ -51,10 +63,7 @@ if(request.getParameter("submit") != null){
 						<label>Email Address*</label>
 						<input type="email" name="email" class="form-controller">
 					</div>
-					<div class="input-group">
-						<label>Re-Enter Email address*</label>
-						<input type="email" name="email_con" class="form-controller">
-					</div>
+					
 
 					<div class="input-group">
 						<label>Password*</label>
@@ -75,11 +84,11 @@ if(request.getParameter("submit") != null){
 						Extra information
 					</h3>
 					<div class="input-group">
-						<label>Address</label>
+						<label>Address*</label>
 						<textarea name="address" class="form-controller"></textarea>
 					</div>
 					<div class="input-group">
-						<label>Phone Number</label>
+						<label>Phone Number*</label>
 						<input type="text" name="phone" class="form-controller">
 					</div>
 				</div>

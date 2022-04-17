@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@ page import="com.project.Helper,com.project.trains,java.util.ArrayList,AllLayout.Train,java.util.Iterator" %>   
+ <%@ page import="com.project.Helper,com.project.Flights,java.util.ArrayList,AllLayout.Flight,java.util.Iterator" %>   
 <%@ include file="header.jsp" %>
 <%
-
-	trains trn = new trains();
+Flights trn = new Flights();
 
 	if(request.getParameter("delete") != null){
 		String trnId = (String) request.getParameter("delete");
 		trn.Delete(trnId);
 	}
 
-	ArrayList<Train> trainlist = new ArrayList<Train>();
+	ArrayList<Flight> trainlist = new ArrayList<Flight>();
 	trainlist = trn.getAll();
 	Iterator trnIt = trainlist.iterator();
 %>
@@ -31,14 +30,13 @@
 		</tr>
 		<%
 		while(trnIt.hasNext()){
-			Train trin = (Train) trnIt.next();
-			
-			%>
+			Flight trin = (Flight) trnIt.next();
+		%>
 			<tr>
 				<td><%= trin.code %></td>
 				<td><%= trin.type %></td>
 				<td><%= trin.name %></td>
-				<td><%= trin.totalSeat %></td>
+				<td><%= trin.totalSeats %></td>
 				<td><a href="?delete=<%= trin.id %>" class="btn btn-sm btn-danger">Delete</a></td>
 			</tr>
 			<%

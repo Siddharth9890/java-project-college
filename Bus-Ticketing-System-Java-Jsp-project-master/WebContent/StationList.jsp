@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="AllLayout.*,com.project.trains,com.project.Stations,java.util.ArrayList,java.util.Iterator" %>
+<%@ page import="AllLayout.*,com.project.Flights,com.project.Airports,java.util.ArrayList,java.util.Iterator" %>
 <%@ include file="header.jsp" %>
 <%
-	Stations sts = new Stations();
+Airports sts = new Airports();
 	if(request.getParameter("createStation") != null){
 		sts.name = (String) request.getParameter("name");
 		sts.contact = (String) request.getParameter("contact");
@@ -12,7 +12,7 @@
 	}
 	
 	
-	ArrayList<Station> stationList = sts.getAll();
+	ArrayList<Airport> stationList = sts.getAll();
 	Iterator stationIterator = stationList.iterator();
 %>
 
@@ -31,7 +31,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-4">
 			
-			<form class="register_form" action="<%= Helper.baseUrl %>StationList.jsp" method="post">
+			<form class="register_form" action="<%=Helper.baseUrl%>StationList.jsp" method="post">
 					<div class="rs_form_box" style="margin:15px; padding:0; border:0;">
 						<div class="input-group">
 							<label>Name</label>
@@ -62,9 +62,9 @@
 					<td>Address</td>
 				</tr>
 				<%
-					while(stationIterator.hasNext()){
-						Station st = (Station) stationIterator.next();
-						%>
+				while(stationIterator.hasNext()){
+								Airport st = (Airport) stationIterator.next();
+				%>
 						<tr>
 							<td><%= st.name %></td>
 							<td><%= st.contact %></td>

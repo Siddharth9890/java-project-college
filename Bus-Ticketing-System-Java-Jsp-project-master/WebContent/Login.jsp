@@ -5,31 +5,30 @@
 <%@ page import="com.project.User" %>
 <%@ include file="header.jsp" %>
 <%
-
 if(session.getAttribute("isUserLogin") != null && (boolean) session.getAttribute("isUserLogin")){
 	response.sendRedirect("Dashboard.jsp");
 }
 
 User user = new User();
 String message = "";
-String userName = null,password = null;
+String email = null,password = null;
 long userId = 0;
 if(request.getParameter("submit") != null){
-	userName = request.getParameter("phone");
+	email = request.getParameter("phone");
 	password = request.getParameter("password");
-	if(userName.equals("") || password.equals("")){
-		message = "User name and password required    asdasdaad!";
-	}else if(userName.length()<3 || password.length()<8)
+	if(email.equals("") || password.equals("")){
+		message = "email and password required!";
+	}else if(email.length()<3 || password.length()<8)
 	{
-		message = "user name length >3 and password length >8 !";
+		message = "email length >3 and password length >8 !";
 	}
-	else if((userId =user.doLogin(userName,password)) >0){
+	else if((userId =user.login(email,password)) >0){
 		session.setAttribute("isUserLogin", true);
-		user.SetUserFromId(Long.toString(userId));
+		user.getUser(Long.toString(userId));
 		user.SetUserSession(session);
 		response.sendRedirect("Dashboard.jsp");
 	}else{
-		message = "User id or password not found!";
+		message = "email id or password not found!";
 		session.invalidate();
 	}
 	
@@ -69,7 +68,7 @@ if(request.getParameter("submit") != null){
 						Login
 					</h3>
 					<div class="input-group">
-						<label>Mobile*</label>
+						<label>Email*</label>
 						<input type="text" name="phone" class="form-controller">
 					</div>
 					<div class="input-group">

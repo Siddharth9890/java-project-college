@@ -6,19 +6,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import AllLayout.Train;
+import AllLayout.Flight;
 
-public class trains {
-	public String name,id,code,type="Shuvon",total_seat="";
-	public int totalSeat;
-	String table = "trains";
+public class Flights {
+	public String name,id,code,type="NORMAL",totalSeats="";
+	String table = "flight";
 	Database db;
-	public trains(){
-		this.total_seat=this.name=this.id=this.code = "";
+	public Flights(){
+		this.totalSeats=this.name=this.id=this.code = "";
 		db = new Database();
-		this.totalSeat = 0;
+		
 	}
-	public trains(String trnId) {
+	public Flights(String trnId) {
 		db = new Database();
 		String sql = "SELECT * FROM "+this.table+" WHERE id='"+trnId+"'";
 		try {
@@ -28,25 +27,25 @@ public class trains {
 				this.id = result.getString("id");
 				this.type = result.getString("type");
 				this.code = result.getString("code");
-				this.total_seat = result.getString("total_seat");
+				this.totalSeats = result.getString("totalSeats");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Train> getAll() {
-		ArrayList<Train> trains = new ArrayList<Train>();
+	public ArrayList<Flight> getAll() {
+		ArrayList<Flight> trains = new ArrayList<Flight>();
 		String sqlQuery = "SELECT * FROM " + this.table;
 		try {
 			ResultSet result = db.statement.executeQuery(sqlQuery);
 			while(result.next()) {
-				Train temp = new Train();
+				Flight temp = new Flight();
 				temp.id = result.getString("id");
 				temp.name = result.getString("name");
 				temp.code = result.getString("code");
 				temp.type = result.getString("type");
-				temp.totalSeat = Integer.parseInt(result.getString("total_seat"));
+				temp.totalSeats = Integer.parseInt(result.getString("totalSeats"));
 				trains.add(temp);
 			}
 		} catch (SQLException e) {
@@ -79,34 +78,38 @@ public class trains {
 		ArrayList<HashMap<String,String>> trains = new ArrayList<HashMap<String,String>>();
 		String sql = null;
 		if(coach != null && !coach.equals("any")) {
-			 sql = "SELECT destinations.*,trains.type as coach,trains.id as trainId,trains.name,trains.code,trains.type FROM trains"
-					+ " INNER JOIN destinations ON "
-					+ " trains.id = destinations.train_id"
-					+ " WHERE destinations.station_from = '"+from+"'"
-					+ " AND destinations.station_to = '"+to+"'"
-					+ " AND trains.type = '"+coach+"'"
+			 sql = "SELECT journeys.*,flight.type as coach,flight.id as flightId,flight.name,flight.code,flight.type FROM flight"
+					+ " INNER JOIN journeys ON "
+					+ " flight.code = journeys.\"flightId\""
+					+ " WHERE journeys.\"fromLocation\" = '"+from+"'"
+					+ " AND journeys.\"toLocation\" = '"+to+"'"
+					+ " AND flight.type = '"+coach+"'"
 					+ " ORDER BY name ASC";
 		}else {
-			 sql = "SELECT destinations.*,trains.type as coach,trains.id as trainId,trains.name,trains.code,trains.type FROM trains"
-					+ " INNER JOIN destinations ON "
-					+ " trains.id = destinations.train_id"
-					+ " WHERE destinations.station_from = '"+from+"'"
-					+ " AND destinations.station_to = '"+to+"'"
+			 sql = "SELECT journeys.*,flight.type as coach,flight.id as flightId,flight.name,flight.code,flight.type FROM flight"
+					+ " INNER JOIN journeys ON "
+					+ " flight.code = journeys.\"flightId\""
+					+ " WHERE journeys.\"fromLocation\" = '"+from+"'"
+					+ " AND journeys.\"toLocation\" = '"+to+"'"
 					+ " ORDER BY name ASC";
 		}
 		
 		try {
+			System.out.println(sql);
 			ResultSet result = this.db.statement.executeQuery(sql);
 			while(result.next()) {
+				System.out.println(result.getString("name"));
 				HashMap<String,String> tempTrain = new HashMap<String,String>();
 				tempTrain.put("name", result.getString("name"));
-				tempTrain.put("destination_id", result.getString("id"));
-				tempTrain.put("coach", result.getString("coach"));
-				tempTrain.put("train_id", result.getString("trainId"));
+				tempTrain.put("id", result.getString("id"));
+				tempTrain.put("type", result.getString("type"));
+				tempTrain.put("flightId", result.getString("flightId"));
 				tempTrain.put("code", result.getString("code"));
-				tempTrain.put("time", result.getString("time"));
-				tempTrain.put("code", result.getString("code"));
-				tempTrain.put("fare", result.getString("fare"));
+				tempTrain.put("departureTime", result.getString("departureTime"));
+				tempTrain.put("status", result.getString("status"));
+				tempTrain.put("price", result.getString("price"));
+				tempTrain.put("totalSeat", result.getString("totalSeat"));
+				
 				trains.add(tempTrain);
 			}
 		} catch (SQLException e) {
@@ -120,7 +123,7 @@ public class trains {
 	private int CreateNew() {
 		String sqlQquery = "";
 		sqlQquery = "INSERT INTO "+this.table+"(name,code,total_seat,type)"
-				+ " VALUES('"+this.name+"','"+this.code+"','"+Integer.toString(this.totalSeat)+"','"+this.type+"')";
+				+ " VALUES('"+this.name+"','"+this.code+"','"+this.totalSeats+"','"+this.type+"')";
 					
 		try {
 			return  this.db.statement.executeUpdate(sqlQquery,Statement.RETURN_GENERATED_KEYS);

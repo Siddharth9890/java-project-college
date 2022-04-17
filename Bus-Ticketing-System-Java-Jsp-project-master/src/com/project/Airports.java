@@ -5,21 +5,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import AllLayout.Station;
-import AllLayout.Train;
+import AllLayout.Airport;
+import AllLayout.Flight;
 import TicketSystemInterface.DatabaseModel;
 
-public class Stations implements DatabaseModel {
+public class Airports implements DatabaseModel {
 	String tableName;
 	public String id, name, contact, address;
 	Database db;
-	public Stations() {
+	public Airports() {
 		id = name = contact= address = "";
 		db = new Database();
-		this.tableName = "stations";
+		this.tableName = "airports";
 	}
-	public Station getStation(String staionId) {
-		Station station = new Station();
+	public Airport getStation(String staionId) {
+		Airport station = new Airport();
 		String sqlQuery = "SELECT * FROM "+this.GetTableName()+" WHERE id='"+staionId+"'";
 		ResultSet result;
 		try {
@@ -39,13 +39,13 @@ public class Stations implements DatabaseModel {
 		
 		return station;
 	}
-	public ArrayList<Station> getAll() {
-		ArrayList<Station> stations = new ArrayList<Station>();
+	public ArrayList<Airport> getAll() {
+		ArrayList<Airport> stations = new ArrayList<Airport>();
 		String sqlQuery = "SELECT * FROM " + this.GetTableName()+" ORDER BY name ASC";
 		try {
 			ResultSet result = db.statement.executeQuery(sqlQuery);
 			while(result.next()) {
-				Station temp = new Station();
+				Airport temp = new Airport();
 				temp.id = result.getString("id");
 				temp.name = result.getString("name");
 				temp.contact = result.getString("contact");

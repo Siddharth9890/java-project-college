@@ -31,6 +31,7 @@ User user = new User(userId);
 			</tr>
 		</table>
 	</div>
+	<%-- 
 	<div class="box successfully_purschase_ticket">
 		<h2 class="box_title">Successful Purchase Information</h2>
 		<table class="table table-bordered">
@@ -70,5 +71,6 @@ User user = new User(userId);
 			
 		</table>
 	</div>
+	--%>
 </div>
 <%@ include file="footer.jsp" %>

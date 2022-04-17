@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.project.Helper,com.project.User,com.project.trains,java.util.*" %>
+<%@ page import="com.project.Helper,com.project.User,com.project.Flights,java.util.*" %>
 <%
-	String message = "";
+String message = "";
 	if(request.getParameter("createTrain") != null){
-		trains trn = new trains();
+		Flights trn = new Flights();
 		trn.name = (String) request.getParameter("name");
 		trn.code = (String) request.getParameter("code");
 		trn.type = (String) request.getParameter("coach");
 		String totalSeat = (String) request.getParameter("totalseat");
-		trn.totalSeat = Integer.parseInt(totalSeat);
+		trn.totalSeats = Integer.parseInt(totalSeat);
 		trn.Save();
 		message = "Train Created";
 		

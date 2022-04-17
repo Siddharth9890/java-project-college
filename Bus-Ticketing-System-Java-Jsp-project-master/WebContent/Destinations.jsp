@@ -2,9 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="AllLayout.*,com.project.*,java.util.ArrayList,java.util.Iterator,java.util.HashMap" %>
 <%
-
 String message = "";
-Stations sts = new Stations();
+Airports sts = new Airports();
 String tempTime = "2018-09-05 00:00:00";
 if(request.getParameter("createStation") != null){
 	sts.name = (String) request.getParameter("name");
@@ -12,15 +11,15 @@ if(request.getParameter("createStation") != null){
 	sts.address = (String) request.getParameter("address");
 	sts.Save();
 }
-trains trn = new trains();
-ArrayList<Train> trainlist = new ArrayList<Train>();
+Flights trn = new Flights();
+ArrayList<Flight> trainlist = new ArrayList<Flight>();
 trainlist = trn.getAll();
 Iterator trnIt = trainlist.iterator();
 
 
 Destination desti = new Destination();
 ArrayList<HashMap<String,String>> allDestinaions = new ArrayList<HashMap<String,String>>();
-ArrayList<Station> stationList = sts.getAll();
+ArrayList<Airport> stationList = sts.getAll();
 Iterator stationIterator = stationList.iterator();
 if(request.getParameter("save_all") != null){
 	String[] station_toAr = request.getParameterValues("station_to[]");
@@ -56,16 +55,21 @@ if(request.getParameter("search") != null){
 	isSearchBoxNeed = false;
 	allDestinaions = desti.getAll(request.getParameter("station_from"),request.getParameter("dst_train"));
 }
-
 %>
     
 <%@ include file="header.jsp" %>
 <div class="signpage">
-<% if(!message.equals("")){ %>
-<div class="alert alert-danger"><p><%= message %></p></div>
-<% } %>
-	<% if(isSearchBoxNeed){ %>
-	<form class="register_form" action="<%= Helper.baseUrl %>Destinations.jsp?search=1" method="get">
+<%
+if(!message.equals("")){
+%>
+<div class="alert alert-danger"><p><%=message%></p></div>
+<%
+}
+%>
+	<%
+	if(isSearchBoxNeed){
+	%>
+	<form class="register_form" action="<%=Helper.baseUrl%>Destinations.jsp?search=1" method="get">
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 offset-sm-3">
@@ -77,13 +81,13 @@ if(request.getParameter("search") != null){
 						<label>Select Train</label>
 						<select name="dst_train" class="form-control" style="width:auto;">
 							<%
-								while(trnIt.hasNext()){
-									Train trnTemp = (Train) trnIt.next();
-									%>
-									<option value="<%= trnTemp.id %>"><%= trnTemp.name+" ("+trnTemp.code+")" %></option>
-									<%
-								}
+							while(trnIt.hasNext()){
+																								Flight trnTemp = (Flight) trnIt.next();
 							%>
+									<option value="<%=trnTemp.id%>"><%=trnTemp.name+" ("+trnTemp.code+")"%></option>
+									<%
+									}
+									%>
 						</select>
 					</div>
 					
@@ -91,13 +95,13 @@ if(request.getParameter("search") != null){
 						<label>Station From</label>
 						<select name="station_from" class="form-control" style="width:auto;">
 							<%
-								while(stationIterator.hasNext()){
-									Station stsTemp = (Station) stationIterator.next();
-									%>
-									<option value="<%= stsTemp.id %>"><%= stsTemp.name %></option>
-									<%
-								}
+							while(stationIterator.hasNext()){
+																			Airport stsTemp = (Airport) stationIterator.next();
 							%>
+									<option value="<%=stsTemp.id%>"><%=stsTemp.name%></option>
+									<%
+									}
+									%>
 						</select>
 					</div>
 
@@ -111,7 +115,9 @@ if(request.getParameter("search") != null){
 			</div>
 		</div>
 	</form>
-	<% }else{ %>
+	<%
+	}else{
+	%>
 		<div class="rs_box" style="overflow:auto;">
 			<form class="ticket_selecting_form" method="post" name="frm_deslist">
 				<h2 class="title"> Train Name: Tista <br>Station From: Dhaka </h2>
@@ -126,44 +132,44 @@ if(request.getParameter("search") != null){
 					</tr>
 					<%
 					Iterator itrTemp = allDestinaions.iterator();
-					Stations tempToFromStation = new Stations();
-					while(itrTemp.hasNext()){
-						HashMap<String,String> tempDestination = (HashMap<String,String>) itrTemp.next();
-						Station tempToStation = tempToFromStation.getStation(tempDestination.get("station_to"));
-						%>
+											Airports tempToFromStation = new Airports();
+											while(itrTemp.hasNext()){
+												HashMap<String,String> tempDestination = (HashMap<String,String>) itrTemp.next();
+												Airport tempToStation = tempToFromStation.getStation(tempDestination.get("station_to"));
+					%>
 						<tr>
 							<td>
 								<div class="input-group">
-									<label><%= tempToStation.name %></label>
+									<label><%=tempToStation.name%></label>
 								</div>
 	
 							</td>
 							<td>
 								<div class="input-group">
-									<label><%= tempDestination.get("time") %></label>
+									<label><%=tempDestination.get("time")%></label>
 								</div>
 							</td>
 							<td>
 								<div class="input-group">
-									<label><%= tempDestination.get("fare") %></label>
+									<label><%=tempDestination.get("fare")%></label>
 								</div>
 							</td>
 							<td>
 								<div class="input-group">
-									<label><%= tempDestination.get("total_seat") %></label>
+									<label><%=tempDestination.get("total_seat")%></label>
 								</div>
 							</td>
 							
 							<td align="center">
 								<div class="input-group">
-									<label><%= tempDestination.get("seat_range") %></label>
+									<label><%=tempDestination.get("seat_range")%></label>
 								</div>
 							</td>
-							<td><a href="?delete=<%= tempDestination.get("id") %>" class="btn btn-danger btn-xs rv_destination" type="button">X</button></td>
+							<td><a href="?delete=<%=tempDestination.get("id")%>" class="btn btn-danger btn-xs rv_destination" type="button">X</button></td>
 						</tr>
 						<%
-					}
-					%>
+						}
+						%>
 					
 					
 				</table>
@@ -183,9 +189,9 @@ if(request.getParameter("search") != null){
 										<div class="input-group">
 											<select name="station_to[]" class="form-control">
 												<%
-														for(int i =0; i<stationList.size(); i++){
-															Station stsTemp = (Station) stationList.get(i);
-															%>
+												for(int i =0; i<stationList.size(); i++){
+																									Airport stsTemp = (Airport) stationList.get(i);
+												%>
 															<option value="<%= stsTemp.id %>"><%= stsTemp.name %></option>
 															<%
 														}

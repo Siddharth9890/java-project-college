@@ -1,6 +1,6 @@
 package AllLayout;
 
-public class Train {
+public class Flight {
 	public String name,id,code,type;
-	public int totalSeat = 0;
+	public int totalSeats = 0;
 }

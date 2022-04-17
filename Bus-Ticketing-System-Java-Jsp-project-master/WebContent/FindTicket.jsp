@@ -2,8 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*,com.project.*,AllLayout.*" %>
 <%
-	
-	String totalSeat = request.getParameter("totalSeat");
+String totalSeat = request.getParameter("totalSeat");
 	String date = request.getParameter("date");
 	String destination = request.getParameter("destination");
 	String actionType = request.getParameter("actionType");
@@ -14,12 +13,12 @@
 		HashMap<String,String> tickDetails = booking.Find(destination, date, totalSeat);
 		
 		if(tickDetails.get("is_avaiable").equals("yes")){
-			Double totalamount = 0.0;
-			totalamount = Double.parseDouble(tickDetails.get("fare")) * Double.parseDouble(totalSeat);
-			Stations tempStation = new Stations();
-			Station stationFrom = tempStation.getStation(tickDetails.get("from"));
-			Station stationTo = tempStation.getStation(tickDetails.get("to"));
-		%>
+	Double totalamount = 0.0;
+	totalamount = Double.parseDouble(tickDetails.get("fare")) * Double.parseDouble(totalSeat);
+	Airports tempStation = new Airports();
+	Airport stationFrom = tempStation.getStation(tickDetails.get("from"));
+	Airport stationTo = tempStation.getStation(tickDetails.get("to"));
+%>
 		<div class="ticket_info">
 			<h2>Ticket Details</h2>
 			<table class="table">

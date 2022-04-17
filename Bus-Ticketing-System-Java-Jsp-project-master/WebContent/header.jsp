@@ -31,8 +31,9 @@ if(session.getAttribute("isUserLogin") != null)
   				<ul class="nav nav-pills pull-left">
   					<% if(isLogin){ 
   						String userId = (String) session.getAttribute("user_id");
+  						
   						User user = new User(userId);
-  						if(user.rule.equals("admin")){
+  						if(user.role.equals("admin")){
   							%>
   							<li  class="nav-item"><a href="" class="nav-link">Dashboard</a></li>
 							<li  class="nav-item"><a href="<%= Helper.baseUrl %>TrainList.jsp" class="nav-link">Trains</a></li>
