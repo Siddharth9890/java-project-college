@@ -17,7 +17,7 @@ trainlist = trn.getAll();
 Iterator trnIt = trainlist.iterator();
 
 
-Destination desti = new Destination();
+Journey desti = new Journey();
 ArrayList<HashMap<String,String>> allDestinaions = new ArrayList<HashMap<String,String>>();
 ArrayList<Airport> stationList = sts.getAll();
 Iterator stationIterator = stationList.iterator();
@@ -28,24 +28,24 @@ if(request.getParameter("save_all") != null){
 	String[] total_seatAr = request.getParameterValues("total_seat[]");
 	String[] seat_rangeAr = request.getParameterValues("seat_range[]");
 	for(int j = 0; j<station_toAr.length; j++){
-		Destination tempDesti = new Destination();
-		tempDesti.station_from = request.getParameter("station_from");
-		tempDesti.train_id= request.getParameter("dst_train");
-		tempDesti.station_to= station_toAr[j];
-		tempDesti.time= jurny_timeAr[j];
+		Journey tempDesti = new Journey();
+		tempDesti.fromLocation = request.getParameter("station_from");
+		tempDesti.flightId= request.getParameter("dst_train");
+		tempDesti.toLocation= station_toAr[j];
+		tempDesti.departureTime= jurny_timeAr[j];
 		tempDesti.status= "active";
-		tempDesti.fare= fareAr[j];
+		tempDesti.price= fareAr[j];
 		tempDesti.last_activity= tempTime;
 		tempDesti.last_modify_by= "0";
 		tempDesti.total_seat=total_seatAr[j];
-		tempDesti.seat_range= seat_rangeAr[j];
+		tempDesti.seatRange= seat_rangeAr[j];
 		tempDesti.type= "up";
 		tempDesti.Save();
 	}
 	
 }
 if(request.getParameter("delete") != null){
-	Destination deleteDesti = new Destination();
+	Journey deleteDesti = new Journey();
 	deleteDesti.id = (String) request.getParameter("delete");
 	deleteDesti.Delete();
 	message = "Destination Deleted";

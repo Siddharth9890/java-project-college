@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*,com.project.*,AllLayout.*" %>
+
 <%
+if(session.getAttribute("isUserLogin") == null){
+	response.sendRedirect("Login.jsp");
+}
 String totalSeat = request.getParameter("totalSeat");
 	String date = request.getParameter("date");
 	String destination = request.getParameter("destination");
@@ -14,10 +18,12 @@ String totalSeat = request.getParameter("totalSeat");
 		
 		if(tickDetails.get("is_avaiable").equals("yes")){
 	Double totalamount = 0.0;
-	totalamount = Double.parseDouble(tickDetails.get("fare")) * Double.parseDouble(totalSeat);
+	String flightId=tickDetails.get("flightId");
+	String journeyId=tickDetails.get("id");
+	totalamount = Double.parseDouble(tickDetails.get("price")) * Double.parseDouble(totalSeat);
 	Airports tempStation = new Airports();
-	Airport stationFrom = tempStation.getStation(tickDetails.get("from"));
-	Airport stationTo = tempStation.getStation(tickDetails.get("to"));
+	Airport stationFrom = tempStation.getStation(tickDetails.get("fromLocation"));
+	Airport stationTo = tempStation.getStation(tickDetails.get("toLocation"));
 %>
 		<div class="ticket_info">
 			<h2>Ticket Details</h2>
@@ -25,15 +31,15 @@ String totalSeat = request.getParameter("totalSeat");
 				<tr>
 					<td>
 						<ul>
-							<li><strong>Journey Date</strong> <span><%= tickDetails.get("j_date")+" "+tickDetails.get("time") %></span></li>
+							<li><strong>Journey Date</strong> <span><%= tickDetails.get("j_date")+" "+tickDetails.get("departureTime") %></span></li>
 							<li><strong>From Station</strong> <span><%= stationFrom.name %></span></li>
 							<li><strong>To Station</strong> <span><%= stationTo.name %></span></li>
 						</ul>
 					</td>
 					<td>
 						<ul>
-							<li><strong>Train / Number</strong> <span><%= tickDetails.get("train_name") %></span></li>
-							<li><strong>Class/Coach</strong> <span><%= tickDetails.get("train_type") %></span></li>
+							<li><strong>Train / Number</strong> <span><%= tickDetails.get("flightName") %></span></li>
+							<li><strong>Class/Coach</strong> <span><%= tickDetails.get("flightType") %></span></li>
 							<li><strong>Total Seat</strong> <span><%= totalSeat %></span></li>
 						</ul>
 					</td>
@@ -47,40 +53,48 @@ String totalSeat = request.getParameter("totalSeat");
 				</tr>
 			</table>
 			<div class="rs_btn_sections">
-				<a href="" class="btn btn-success btn_confirm_ticket" data-destination="<%= destination %>" data-seat="<%= totalSeat %>" data-date="<%= date %>">Confirm/Book Now</a>
+				<a href="" class="btn btn-success btn_confirm_ticket" data-userId="<%= userId %>" data-journeyId="<%= journeyId %>"  data-flightId="<%= flightId %>" data-seat="<%= totalSeat %>" >Confirm/Book Now</a>
 			</div>
 		</div>
-		<% 
+		<%
 		} 
-		
-	}else{
-		String tickId = "10";
-		request.setAttribute("ticket_id", "10");
-		String destinationId = request.getParameter("destination");
-		String message = "";
-		boolean isError = false;
-		Destination destObj = new Destination(destinationId);
-		Booking booking = new Booking();
-		try{
-			
-			
-			if(!booking.IsAvailable(destObj , date, totalSeat)){
+				
+			}else{
+				String tickId = "10";
+				request.setAttribute("ticket_id", "10");
+				String flightId = request.getParameter("flightId");
+				String journeyId = request.getParameter("journeyId");
+				String userId1=request.getParameter("userId");
+				System.out.println("flight id in find ticket"+flightId);
+				
+				String message = "";
+				boolean isError = false;
+				Flights flight = new Flights();
+				flight.findFlight(flightId);
+				Journey journey=new Journey(journeyId);
+				Booking booking = new Booking();
+				
+				//System.out.println("in find ticket "+journey.fromLocation);
+				try{
+							
+			if(!booking.IsAvailable(flight , totalSeat)){
 				isError = true;
 				message = "Seat Is not Available!";
 			}
-		}catch(Exception e){
+				}catch(Exception e){
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
-		if(isError){
-			%>
+			
+				}
+				if(isError){
+		%>
 			<div class="alert alert-default alert-danger text-center">
 				<%= message %>
 			</div>
 			<%
 		}else{
+			//needed flight id ,journey id,user id ,date,totals eat
 			
-			long bookedId = booking.BookNow(destObj, userId, date, totalSeat);
+			 long bookedId = booking.BookNow(journey,flight,userId1, date, totalSeat);
 		
 		%>
 		<div class="ticket_info">

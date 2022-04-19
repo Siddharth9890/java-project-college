@@ -4,13 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
+import AllLayout.Flight;
 import TicketSystemInterface.DatabaseModel;
 
 public class Booking implements DatabaseModel{
 	private String tableName = "booking";
-	public String id, destination_id, booking_date, journey_date, train_id, seat_numbers, passenger_id, number_of_seat, payment_status, status, note;
+	public String id, destinationId, bookingDate, journeyDate, flightId, seatNumbers, userId, numberOfSeat, paymentStatus, status, type;
 	Database db;
 	public Booking() {
 		db = new Database();
@@ -21,8 +23,9 @@ public class Booking implements DatabaseModel{
 	
 	public ResultSet FindByUser(String userId){
 		ResultSet result = null;
-		String sql = "SELECT * FROM "+this.tableName+ " WHERE passenger_id='"+userId+"' ORDER BY id DESC";
+		String sql = "SELECT * FROM "+this.tableName+ " WHERE \"userId\"='"+userId+"' ORDER BY id DESC";
 		try {
+			
 			result = this.db.statement.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -37,23 +40,24 @@ public class Booking implements DatabaseModel{
 		result.put("is_avaiable","no");
 		result.put("j_date", date);
 		String query = null;
-		query = "SELECT destinations.*,trains.name as trainName,trains.code as trainCode, trains.type as trainType from destinations"
-				+ " INNER JOIN trains ON"
-				+ " destinations.train_id = trains.id"
-				+ " WHERE destinations.id = '"+destination+"'";
+		query = "SELECT journeys.*,flight.name as flightName,flight.code as flightCode, flight.type as flightType,flight.\"totalSeats\" from journeys"
+				+ " INNER JOIN flight ON"
+				+ " journeys.\"flightId\" = flight.code"
+				+ " WHERE journeys.id = '"+destination+"'";
 		try {
+			System.out.println(query);
 			ResultSet resultset = this.db.statement.executeQuery(query);
 			while(resultset.next()) {
-				result.put("destinations_id",resultset.getString("id"));
-				result.put("train_name",resultset.getString("trainName"));
-				result.put("train_code",resultset.getString("trainCode"));
-				result.put("train_type",resultset.getString("trainType"));
-				result.put("from",resultset.getString("station_from"));
-				result.put("to",resultset.getString("station_to"));
-				result.put("time",resultset.getString("time"));
-				result.put("fare",resultset.getString("fare"));
-				result.put("total_seat",resultset.getString("total_seat"));
-				result.put("seat_range",resultset.getString("seat_range"));
+				result.put("id",resultset.getString("id"));
+				result.put("flightName",resultset.getString("flightName"));
+				result.put("flightId",resultset.getString("flightId"));
+				result.put("flightType",resultset.getString("flightType"));
+				result.put("fromLocation",resultset.getString("fromLocation"));
+				result.put("toLocation",resultset.getString("toLocation"));
+				result.put("departureTime",resultset.getString("departureTime"));
+				result.put("price",resultset.getString("price"));
+				result.put("totalSeats",resultset.getString("totalSeats"));
+				result.put("seatRange",resultset.getString("seatRange"));
 				result.put("is_avaiable","yes");
 			}
 		} catch (SQLException e) {
@@ -64,59 +68,34 @@ public class Booking implements DatabaseModel{
 	public void SetById(int argId) {
 		
 	}
-	public long BookNow(Destination destinationObj,String userId,String date,String totalSeat) {
+	public long BookNow(Journey journey,Flights flight,String userId,String date,String totalSeat) {
 		long bookId = 0;
-		String[] seatRange = destinationObj.seat_range.split("-");
-		int seatStart = Integer.parseInt(seatRange[0]);
-		int seatEnd = Integer.parseInt(seatRange[1]);
-		ArrayList<Integer> seatBooked = new ArrayList<Integer>();
-		String seatsToBook= "";
-		// Find all booked seat
-		String sql = "SELECT seat_numbers FROM booking WHERE destination_id = '"+destinationObj.id+"'  AND journey_date ='"+date+"' ";
+		System.out.println(userId);
+		this.seatNumbers=(Integer.parseInt(flight.totalSeats)-Integer.parseInt(totalSeat))+"";
+		
+		this.destinationId = journey.id;
+		this.bookingDate = new Date().toLocaleString();
+		this.journeyDate = new Date().toLocaleString();
+		this.flightId = flight.code;
+		this.userId = userId;
+		this.numberOfSeat = totalSeat;
+		this.paymentStatus = "INCOMPLETE";
+		this.status = "SUCCESS";
+		this.type = "BUSINESS";
+		// Insert the seats
+		String sql="UPDATE flight SET \"totalSeats\"= '"+this.seatNumbers+"' where flight.code ='"+flight.code+"'";
+		String sqlBooking = "INSERT INTO booking(\"destinationId\",\"bookingDate\",\"journeyDate\",\"flightId\",\"seatNumbers\",\"userId\",\"numberOfSeat\",\"paymentStatus\",status,type)"
+				+ " VALUES('"+this.destinationId+"','"+this.bookingDate+"','"+this.journeyDate+"','"+this.flightId+"','"+this.seatNumbers+"','"+this.userId+"','"+this.numberOfSeat+"','"+this.paymentStatus+"','"+this.status+"','"+this.type+"')";
+		
 		try {
-			ResultSet result = this.db.statement.executeQuery(sql);
-			if(result.next()) {
-				String tempSeat[] = result.getString("seat_numbers").split(",");
-				for(String seat:tempSeat) {
-					seatBooked.add(Integer.parseInt(seat));
-				}
-			}
+			System.out.println(sql);
+			 this.db.statement.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// select free seat
-		int maxSeatNeed = 0;
-		for(int i=seatStart; i<=seatEnd; i++) {
-			if(maxSeatNeed>=Integer.parseInt(totalSeat))
-				break;
-			
-			if(!seatBooked.contains(i)) {
-				maxSeatNeed++;
-				if(seatsToBook.isEmpty()) {
-					seatsToBook = Integer.toString(i);
-				}else {
-					seatsToBook = seatsToBook+","+Integer.toString(i);
-				}
-			}
-			
-		}
-		this.destination_id = destinationObj.id;
-		this.booking_date = date;
-		this.journey_date = date;
-		this.train_id = destinationObj.train_id;
-		this.passenger_id = userId;
-		this.number_of_seat = totalSeat;
-		this.payment_status = "pending";
-		this.status = "success";
-		this.note = "note";
-		this.seat_numbers = seatsToBook;
-		// Insert the seats
-		String sqlBooking = "INSERT INTO booking(destination_id,booking_date,journey_date,train_id,seat_numbers,passenger_id,number_of_seat,payment_status,status,note)"
-				+ " VALUES('"+this.destination_id+"','"+this.booking_date+"','"+this.journey_date+"','"+this.train_id+"','"+this.seat_numbers+"','"+this.passenger_id+"','"+this.number_of_seat+"','"+this.payment_status+"','"+this.status+"','"+this.note+"')";
-		
 		try {
+			System.out.println(sqlBooking);
 			bookId = this.db.statement.executeUpdate(sqlBooking,Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -125,16 +104,19 @@ public class Booking implements DatabaseModel{
 		
 		return bookId;
 	}
-	public boolean IsAvailable(Destination destination,String date,String totalSeat) {
+//	need to reformat the code remove the sql 
+	public boolean IsAvailable(Flights flight,String totalSeat) {
 		int seatNeed = Integer.parseInt(totalSeat);
 		boolean isAvailable = true;
-		int trainMaxSeat = Integer.parseInt(destination.total_seat);
-		String sql = "SELECT SUM(number_of_seat) as totalSeatBooked FROM booking WHERE destination_id = '"+destination.id+"'  AND journey_date ='"+date+"' ";
+		
+		String sql = "select \"totalSeats\" from flight WHERE flight.code = '"+flight.code+"' ";
 		try {
 			ResultSet result = this.db.statement.executeQuery(sql);
 			if(result.next()) {
-				if(trainMaxSeat <= (result.getInt("totalSeatBooked") + seatNeed) ) {
-					isAvailable = false;
+				System.out.println("From database"+result.getInt("totalSeats"));
+				if(result.getInt("totalSeats")-seatNeed<0)
+				{
+					isAvailable=false;
 				}
 			}
 		} catch (SQLException e) {

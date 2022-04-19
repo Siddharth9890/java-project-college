@@ -39,9 +39,10 @@
 		var url = $('.ticket_selecting_form').attr('action');
 		var data = {
 			actionType: "ticketConfirm",
-			date: $(this).attr("data-date"),
+			flightId: $(this).attr("data-flightId"),
+			journeyId:$(this).attr("data-journeyId"),
 			totalSeat: $(this).attr("data-seat"),
-			destination: $(this).attr("data-destination"),
+			userId: $(this).attr("data-userId"),
 		};
 		$.post(url,data,function(res){
 			var response = res;

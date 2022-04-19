@@ -4,6 +4,9 @@
 <%@ include file="header.jsp" %>
 <%
 String userId = null;
+if(session.getAttribute("isUserLogin") == null){
+	response.sendRedirect("Login.jsp");
+}
 if(session.getAttribute("user_id") != null){
 	userId = (String) session.getAttribute("user_id");
 }
@@ -31,7 +34,7 @@ User user = new User(userId);
 			</tr>
 		</table>
 	</div>
-	<%-- 
+	
 	<div class="box successfully_purschase_ticket">
 		<h2 class="box_title">Successful Purchase Information</h2>
 		<table class="table table-bordered">
@@ -47,22 +50,24 @@ User user = new User(userId);
 			</tr>
 			<%
 			Booking booking = new Booking();
-			ResultSet bookedTicket = booking.FindByUser(user.id);
+			ResultSet bookedTicket = booking.FindByUser(userId);
+			
 			while(bookedTicket.next()){
-				Destination tempDestination = new Destination(bookedTicket.getString("destination_id"));
-				trains trnTemp = new trains(tempDestination.train_id);
-				Station stationFromTemp = new Stations().getStation(tempDestination.station_from);
-				Station stationToTemp = new Stations().getStation(tempDestination.station_to);
+				
+				Journey journey = new Journey(bookedTicket.getString("destinationId"));
+				Flights trnTemp = new Flights(journey.id);
+				String stationFromTemp = journey.fromLocation;
+				String stationToTemp = journey.toLocation;
 				%>
 				<tr>
 					<td><%= trnTemp.name %></td>
 					<td><%= trnTemp.type %></td>
-					<td><%= bookedTicket.getString("booking_date") %></td>
-					<td><%= bookedTicket.getString("journey_date") %></td>
-					<td><%= stationFromTemp.name %></td>
-					<td><%= stationToTemp.name %></td>
-					<td><%= bookedTicket.getString("number_of_seat") %></td>
-					<td><a class="btn btn-success btn-sm">Print</a></td>
+					<td><%= bookedTicket.getString("bookingDate") %></td>
+					<td><%= bookedTicket.getString("journeyDate") %></td>
+					<td><%= stationFromTemp %></td>
+					<td><%= stationToTemp%></td>
+					<td><%= bookedTicket.getString("numberOfSeat") %></td>
+					<td><a class="btn btn-success btn-sm">Cancel ticket</a></td>
 					
 				</tr>
 				<%
@@ -71,6 +76,6 @@ User user = new User(userId);
 			
 		</table>
 	</div>
-	--%>
+	
 </div>
 <%@ include file="footer.jsp" %>

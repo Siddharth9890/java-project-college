@@ -33,20 +33,20 @@ if(session.getAttribute("isUserLogin") != null)
   						String userId = (String) session.getAttribute("user_id");
   						
   						User user = new User(userId);
-  						if(user.role.equals("admin")){
+  						if(user.role.equals("ADMIN")){
   							%>
   							<li  class="nav-item"><a href="" class="nav-link">Dashboard</a></li>
 							<li  class="nav-item"><a href="<%= Helper.baseUrl %>TrainList.jsp" class="nav-link">Trains</a></li>
 							<li  class="nav-item"><a href="<%= Helper.baseUrl %>StationList.jsp" class="nav-link">Stations</a></li>
 							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Destinations.jsp" class="nav-link">Destinations</a></li>
-							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout" class="nav-link">Logout</a></li>
+							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout.jsp" class="nav-link">Logout</a></li>
   							<%
   						}
   						else{
   							%>
   							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Dashboard.jsp" class="nav-link">Dashboard</a></li>
   							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Purchase.jsp" class="nav-link">Purses Ticket</a></li>
-  							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout" class="nav-link">Logout</a></li>
+  							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout.jsp" class="nav-link">Logout</a></li>
   							
   						<%
   						}

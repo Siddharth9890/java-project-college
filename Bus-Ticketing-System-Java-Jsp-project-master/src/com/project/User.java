@@ -39,6 +39,8 @@ public class User implements DatabaseModel {
                 this.email = result.getString("email");
                 this.phone = result.getString("phone");
                 this.role = result.getString("role");
+                this.address = result.getString("address");
+                
             }
 
         } catch (SQLException e) {

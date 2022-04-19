@@ -8,33 +8,30 @@ import java.util.HashMap;
 
 import TicketSystemInterface.DatabaseModel;
 
-public class Destination implements DatabaseModel {
-	private String table_name = "destinations";
-	public String id,station_from,station_to,train_id,time,status,fare,last_activity,last_modify_by,total_seat,seat_range,type;
+public class Journey implements DatabaseModel {
+	private String table_name = "journeys";
+	public String id,fromLocation,toLocation,flightId,departureTime,status,price,seatRange;
 	public Database db;
-	public Destination() {
-		id=station_from=station_to=train_id=time=status=fare=last_activity=last_modify_by=total_seat=seat_range=type = "";
+	public Journey() {
+		id=fromLocation=toLocation=flightId=departureTime=status=price=seatRange="";
 		db = new Database();
 	}
 
-	public Destination(String argId) {
+	public Journey(String argId) {
 		db = new Database();
 		String sql = "SELECT * FROM "+this.GetTableName()+" WHERE id = '"+argId+"'";
 		try {
 			ResultSet result = this.db.statement.executeQuery(sql);
 			if(result.next()) {
 				this.id = result.getString("id");
-				this.station_from = result.getString("station_from");
-				this.station_to = result.getString("station_to");
-				this.train_id = result.getString("train_id");
-				this.time = result.getString("time");
+				this.fromLocation = result.getString("fromLocation");
+				this.toLocation = result.getString("toLocation");
+				this.flightId = result.getString("flightId");
+				this.departureTime = result.getString("departureTime");
 				this.status = result.getString("status");
-				this.fare = result.getString("fare");
-				this.last_activity = result.getString("last_activity");
-				this.last_modify_by = result.getString("last_modify_by");
-				this.total_seat = result.getString("total_seat");
-				this.seat_range = result.getString("seat_range");
-				this.type = result.getString("type");
+				this.price = result.getString("price");
+				this.seatRange = result.getString("seatRange");
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -58,18 +55,14 @@ public class Destination implements DatabaseModel {
 			
 			while(result.next()) {
 				HashMap<String,String> tempData = new HashMap<String,String>();
-				tempData.put("station_from", result.getString("station_from"));
+				tempData.put("fromLocation", result.getString("fromLocation"));
 				tempData.put("id", result.getString("id"));
-				tempData.put("station_to", result.getString("station_to"));
-				tempData.put("train_id", result.getString("train_id"));
-				tempData.put("time", result.getString("time"));
+				tempData.put("toLocation", result.getString("toLocation"));
+				tempData.put("flightId", result.getString("flightId"));
+				tempData.put("departureTime", result.getString("departureTime"));
 				tempData.put("status", result.getString("status"));
-				tempData.put("fare", result.getString("fare"));
-				tempData.put("last_activity", result.getString("last_activity"));
-				tempData.put("last_modify_by", result.getString("last_modify_by"));
-				tempData.put("total_seat", result.getString("total_seat"));
-				tempData.put("seat_range", result.getString("seat_range"));
-				tempData.put("type", result.getString("type"));
+				tempData.put("price", result.getString("price"));
+				tempData.put("seatRange", result.getString("seatRange"));
 				list.add(tempData);
 				
 			}
@@ -114,8 +107,8 @@ public class Destination implements DatabaseModel {
 	}
 	
 	private int InsertNew() {
-		String sqlQury = "INSERT INTO "+this.GetTableName()+" (station_from,station_to,train_id,time,status,fare,last_activity,last_modify_by,total_seat,seat_range,type) "
-				+ " VALUES('"+this.station_from+"','"+this.station_to+"','"+this.train_id+"','"+time+"','"+status+"','"+fare+"','"+last_activity+"','"+last_modify_by+"','"+total_seat+"','"+seat_range+"','"+type+"')";
+		String sqlQury = "INSERT INTO "+this.GetTableName()+" (station_from,station_to,train_id,time,status,fare,seat_range,type) "
+				+ " VALUES('"+this.fromLocation+"','"+this.toLocation+"','"+this.flightId+"','"+departureTime+"','"+status+"','"+price+"','"+"','"+seatRange+"','"+"')";
 		try {
 			return this.db.statement.executeUpdate(sqlQury,Statement.NO_GENERATED_KEYS);
 		} catch (SQLException e) {

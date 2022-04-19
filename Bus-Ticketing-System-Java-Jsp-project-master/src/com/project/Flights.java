@@ -34,6 +34,28 @@ public class Flights {
 			e.printStackTrace();
 		}
 	}
+	public void findFlight(String code) {
+		db = new Database();
+		String sql = "SELECT * FROM "+this.table+" WHERE code='"+code+"'";
+		
+		try {
+			ResultSet result = this.db.statement.executeQuery(sql);
+			while(result.next()) {
+				System.out.println(result.getString("id"));
+				this.name = result.getString("name");
+				this.id = result.getString("id");
+				this.type = result.getString("type");
+				this.code = result.getString("code");
+				this.totalSeats = result.getString("totalSeats");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<Flight> getAll() {
 		ArrayList<Flight> trains = new ArrayList<Flight>();
 		String sqlQuery = "SELECT * FROM " + this.table;
@@ -78,7 +100,7 @@ public class Flights {
 		ArrayList<HashMap<String,String>> trains = new ArrayList<HashMap<String,String>>();
 		String sql = null;
 		if(coach != null && !coach.equals("any")) {
-			 sql = "SELECT journeys.*,flight.type as coach,flight.id as flightId,flight.name,flight.code,flight.type FROM flight"
+			 sql = "SELECT journeys.*,flight.type as coach,flight.id as flightId,flight.name,flight.code,flight.type,flight.\"totalSeats\" FROM flight"
 					+ " INNER JOIN journeys ON "
 					+ " flight.code = journeys.\"flightId\""
 					+ " WHERE journeys.\"fromLocation\" = '"+from+"'"
@@ -86,7 +108,7 @@ public class Flights {
 					+ " AND flight.type = '"+coach+"'"
 					+ " ORDER BY name ASC";
 		}else {
-			 sql = "SELECT journeys.*,flight.type as coach,flight.id as flightId,flight.name,flight.code,flight.type FROM flight"
+			 sql = "SELECT journeys.*,flight.type as coach,flight.id as flightId,flight.name,flight.code,flight.type,flight.\"totalSeats\"FROM flight"
 					+ " INNER JOIN journeys ON "
 					+ " flight.code = journeys.\"flightId\""
 					+ " WHERE journeys.\"fromLocation\" = '"+from+"'"
@@ -108,7 +130,7 @@ public class Flights {
 				tempTrain.put("departureTime", result.getString("departureTime"));
 				tempTrain.put("status", result.getString("status"));
 				tempTrain.put("price", result.getString("price"));
-				tempTrain.put("totalSeat", result.getString("totalSeat"));
+				tempTrain.put("totalSeats", result.getString("totalSeats"));
 				
 				trains.add(tempTrain);
 			}

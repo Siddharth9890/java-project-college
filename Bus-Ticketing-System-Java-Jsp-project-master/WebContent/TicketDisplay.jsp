@@ -1,5 +1,8 @@
 <%@page import="java.util.*,AllLayout.*,com.project.*,AllLayout.*" %>
 <%
+if(session.getAttribute("isUserLogin") == null){
+	response.sendRedirect("Login.jsp");
+}
 ArrayList<HashMap<String,String>> trains = new ArrayList<HashMap<String,String>>();
 Flights trnObj = new Flights();
 String stationTo =  request.getParameter("to");
@@ -19,8 +22,9 @@ if(stationTo != null || stationFrom != null){
 
 <%@ include file="header.jsp" %>
 <form class="ticket_selecting_form" action="<%= Helper.baseUrl %>FindTicket.jsp">
-	<h2 class="title">  <span>Train Route Showing For ::</span> <%= stationFrom %> to  <%= stationTo%> <span>:: Journey Date -</span> <%= journey_date %> </h2>
+	<h2 class="title">  <span>Train Route Showing For ::</span> <%= stationFrom %> to  <%= stationTo%> <span>:: Journey Date -</span>
 	<table class="table rs_shadow">
+					
 		<tr>
 			<th>Serial</th>
 			<th>Train No</th>
@@ -43,7 +47,7 @@ if(stationTo != null || stationFrom != null){
 			<td><%= tempTrain.get("name") %></td>
 			<td><%= tempTrain.get("type") %></td>
 			<td><%= tempTrain.get("departureTime") %></td>
-			<td><%= tempTrain.get("totalSeat") %></td>
+			<td><%= tempTrain.get("totalSeats") %></td>
 			<td><%= tempTrain.get("status") %></td>
 			<td><%= tempTrain.get("price")+" INR"  %></td>
 			<td>
@@ -58,8 +62,9 @@ if(stationTo != null || stationFrom != null){
 				<a href="javascript:;" class="btn btn-success rs_search_ticket" data-date="<%= journey_date %>" data-destination="<%= tempTrain.get("id") %>">Search Ticket</a>
 			</td>
 		</tr>
-		<% } %>
+	<% } %>
 	</table>
+	
 </form>
 <div id="rs_ticket_result">
 
