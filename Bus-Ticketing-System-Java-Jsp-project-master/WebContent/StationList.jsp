@@ -21,10 +21,10 @@ Airports sts = new Airports();
 	<div class="box_title">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
-				Create New Station
+				Create New Airport
 			</div>
 			<div class="col-xs-12 col-sm-8">
-				All Stations
+				All Airport
 			</div>
 		</div>
 	</div>

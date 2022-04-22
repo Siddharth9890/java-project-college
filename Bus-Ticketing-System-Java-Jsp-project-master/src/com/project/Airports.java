@@ -81,7 +81,24 @@ public class Airports implements DatabaseModel {
 		// TODO Auto-generated method stub
 		return this.tableName;
 	}
+	
+	private int getId() {
+		String query="SELECT MAX(\"id\") FROM \"airports\"";
+
+		try {
+			ResultSet result = this.db.statement.executeQuery(query);
+			while(result.next())
+				return result.getInt("max");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+		
+	}
+	
 	private int InsertNew() {
+		//System.out.println(getId());
 		String  query = "INSERT INTO "+this.GetTableName()+ "(name, contact,address) "
 				+ " VALUES('"+this.name+"','"+this.contact+"','"+this.address+"')";
 		try {
@@ -91,6 +108,7 @@ public class Airports implements DatabaseModel {
 			e.printStackTrace();
 		}
 		return 0;
+		
 	}
 
 }

@@ -13,6 +13,8 @@ User user = new User();
 String message = "";
 String email = null,password = null;
 long userId = 0;
+
+
 if(request.getParameter("submit") != null){
 	email = request.getParameter("phone");
 	password = request.getParameter("password");

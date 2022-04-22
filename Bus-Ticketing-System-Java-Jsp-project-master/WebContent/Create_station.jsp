@@ -10,10 +10,10 @@
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 				<div class="rs_form_box">
 					<h3 class="form_section_title">
-						Station Information
+						Airport Information
 					</h3>
 					<div class="input-group">
-						<label>Station Name</label>
+						<label>Airport Name</label>
 						<input type="text" name="code" class="form-controller">
 					</div>
 					<div class="input-group">
