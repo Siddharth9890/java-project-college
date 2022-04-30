@@ -31,21 +31,21 @@ String totalSeat = request.getParameter("totalSeat");
 				<tr>
 					<td>
 						<ul>
-							<li><strong>Journey Date</strong> <span><%= tickDetails.get("j_date")+" "+tickDetails.get("departureTime") %></span></li>
-							<li><strong>From Station</strong> <span><%= stationFrom.name %></span></li>
-							<li><strong>To Station</strong> <span><%= stationTo.name %></span></li>
+							<li><strong>Journey Date</strong> <span><%= " "+tickDetails.get("departureTime") %></span></li>
+							<li><strong>From</strong> <span><%= tickDetails.get("fromLocation") %></span></li>
+							<li><strong>From</strong> <span><%= tickDetails.get("toLocation") %></span></li>
 						</ul>
 					</td>
 					<td>
 						<ul>
-							<li><strong>Train / Number</strong> <span><%= tickDetails.get("flightName") %></span></li>
-							<li><strong>Class/Coach</strong> <span><%= tickDetails.get("flightType") %></span></li>
-							<li><strong>Total Seat</strong> <span><%= totalSeat %></span></li>
+							<li><strong>Flight Name</strong> <span><%= tickDetails.get("flightName") %></span></li>
+							<li><strong>Class</strong> <span><%= tickDetails.get("flightType") %></span></li>
+							<li><strong>Total Seats</strong> <span><%= totalSeat %></span></li>
 						</ul>
 					</td>
 					<td>
 						<ul>
-							<li><strong>Fare</strong> <span><%= Double.toString(totalamount) + " "+ Helper.Currency %></span></li>
+							<li><strong>Price</strong> <span><%= Double.toString(totalamount) + " "+ Helper.Currency %></span></li>
 							<li><strong>Bank Charge</strong> <span><%= bankCharge + " "+ Helper.Currency %></span></li>
 							<li><strong>Total Amount</strong> <span><%= (totalamount+bankCharge)+ " "+ Helper.Currency %></span></li>
 						</ul>
@@ -65,7 +65,6 @@ String totalSeat = request.getParameter("totalSeat");
 				String flightId = request.getParameter("flightId");
 				String journeyId = request.getParameter("journeyId");
 				String userId1=request.getParameter("userId");
-				System.out.println("flight id in find ticket"+flightId);
 				
 				String message = "";
 				boolean isError = false;
@@ -74,7 +73,7 @@ String totalSeat = request.getParameter("totalSeat");
 				Journey journey=new Journey(journeyId);
 				Booking booking = new Booking();
 				
-				//System.out.println("in find ticket "+journey.fromLocation);
+				
 				try{
 							
 			if(!booking.IsAvailable(flight , totalSeat)){
@@ -95,10 +94,12 @@ String totalSeat = request.getParameter("totalSeat");
 			//needed flight id ,journey id,user id ,date,totals eat
 			
 			 long bookedId = booking.BookNow(journey,flight,userId1, date, totalSeat);
+			
+			request.setAttribute("bookedId", bookedId);
 		
 		%>
 		<div class="ticket_info">
-			<h2>Congratulation! Your ticket has been booked.</h2>
+			<h2>Congrats! Your ticket has been booked.</h2>
 			<p class="text_center">Please print your ticket.</p>
 		</div>
 		<%@ include file="PrintTicket.jsp" %>

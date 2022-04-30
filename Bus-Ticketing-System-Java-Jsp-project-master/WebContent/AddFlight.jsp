@@ -9,7 +9,7 @@ String message = "";
 		trn.code = (String) request.getParameter("code");
 		trn.type = (String) request.getParameter("coach");
 		String totalSeat = (String) request.getParameter("totalseat");
-		trn.totalSeats = Integer.parseInt(totalSeat);
+		trn.totalSeats = totalSeat;
 		trn.Save();
 		message = "Train Created";
 		
@@ -20,7 +20,7 @@ String message = "";
 <% if(!message.equals("")){ %>
 	<div class="alert alert-info"><p><%= message %></p></div>
 	<% } %>
-	<form class="register_form" action="<%= Helper.baseUrl %>Add.jsp" method="post">
+	<form class="register_form" action="<%= Helper.baseUrl %>AddFlight.jsp" method="post">
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3">

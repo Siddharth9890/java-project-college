@@ -35,11 +35,7 @@ if(request.getParameter("save_all") != null){
 		tempDesti.departureTime= jurny_timeAr[j];
 		tempDesti.status= "active";
 		tempDesti.price= fareAr[j];
-		tempDesti.last_activity= tempTime;
-		tempDesti.last_modify_by= "0";
-		tempDesti.total_seat=total_seatAr[j];
 		tempDesti.seatRange= seat_rangeAr[j];
-		tempDesti.type= "up";
 		tempDesti.Save();
 	}
 	

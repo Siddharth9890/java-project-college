@@ -21,6 +21,32 @@ public class Booking implements DatabaseModel{
 		
 	}
 	
+	public void findByBookingId(Long id) {
+		String sql = "SELECT * FROM "+this.tableName+ " WHERE id = "+id;
+		try {
+			
+			ResultSet result = this.db.statement.executeQuery(sql);
+			while(result.next())
+			{
+				this.id=result.getString("id");
+				this.destinationId=result.getString("destinationId");
+				this.bookingDate=result.getString("bookingDate");
+				this.journeyDate=result.getString("journeyDate");
+				this.flightId=result.getString("flightId");
+				this.seatNumbers=result.getString("seatNumbers");
+				this.userId=result.getString("userId");
+				this.numberOfSeat=result.getString("numberOfSeat");
+				this.paymentStatus=result.getString("paymentStatus");
+				this.status=result.getString("status");
+				this.type=result.getString("type");
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public ResultSet FindByUser(String userId){
 		ResultSet result = null;
 		String sql = "SELECT * FROM "+this.tableName+ " WHERE \"userId\"='"+userId+"' ORDER BY id DESC";
@@ -86,17 +112,28 @@ public class Booking implements DatabaseModel{
 		String sql="UPDATE flight SET \"totalSeats\"= '"+this.seatNumbers+"' where flight.code ='"+flight.code+"'";
 		String sqlBooking = "INSERT INTO booking(\"destinationId\",\"bookingDate\",\"journeyDate\",\"flightId\",\"seatNumbers\",\"userId\",\"numberOfSeat\",\"paymentStatus\",status,type)"
 				+ " VALUES('"+this.destinationId+"','"+this.bookingDate+"','"+this.journeyDate+"','"+this.flightId+"','"+this.seatNumbers+"','"+this.userId+"','"+this.numberOfSeat+"','"+this.paymentStatus+"','"+this.status+"','"+this.type+"')";
-		
+		String findBooking="SELECT * from booking where \"userId\"= "+this.userId+" order by id desc limit 1";
 		try {
-			System.out.println(sql);
+			
 			 this.db.statement.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			System.out.println(sqlBooking);
-			bookId = this.db.statement.executeUpdate(sqlBooking,Statement.RETURN_GENERATED_KEYS);
+			
+			 this.db.statement.executeUpdate(sqlBooking);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			
+			ResultSet rs= this.db.statement.executeQuery(findBooking);
+			while(rs.next())
+				bookId=Integer.parseInt(rs.getString("id"));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

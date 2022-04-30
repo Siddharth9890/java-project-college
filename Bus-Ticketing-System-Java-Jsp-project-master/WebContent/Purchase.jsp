@@ -10,7 +10,6 @@ Airports airports = new Airports();
 	ArrayList<Airport> allStations = airports.getAll();
 %>
 <%@ include file="header.jsp" %>
-<%-- chutiya giri ki hai --%>
 <div class="signpage">
 	<form class="register_form" style="max-width:400px;" action="<%=Helper.baseUrl%>TicketDisplay.jsp" method="post">
 		<div class="rs_form_box">
@@ -18,7 +17,7 @@ Airports airports = new Airports();
 				 PURCHASE TICKET
 			</h3>
 			<div class="form-group">
-				<label>Airport From :</label>
+				<label>From :</label>
 				<select class="form-control" name="from" id="from_where_select">
 					<%
 					for(int i =0; i<allStations.size(); i++){
@@ -52,7 +51,7 @@ Airports airports = new Airports();
 			</div>
 			
 			<div class="form-group">
-				<label>Airport To :</label>
+				<label>To :</label>
 				<select class="form-control" name="to" id="from_where_select">
 					<%
 					for(int i =0; i<allStations.size(); i++){
@@ -66,7 +65,7 @@ Airports airports = new Airports();
 			</div>
 			
 			<div class="form-group">
-				<label>Plane  Type :</label>
+				<label>Class :</label>
 				<select class="form-control" name="coach" id="from_where_select" >
 				<option value="any">Any Coach</option>
 				<%

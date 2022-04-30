@@ -77,11 +77,9 @@ public class Flights {
 		return trains;
 	}
 	public void Save() {
-		if(this.id.equals("")) {
+		
 			this.CreateNew();
-		}else {
-			this.CreateNew();
-		}
+		
 		
 	}
 	public void Delete (String trnId) {
@@ -144,7 +142,7 @@ public class Flights {
 	
 	private int CreateNew() {
 		String sqlQquery = "";
-		sqlQquery = "INSERT INTO "+this.table+"(name,code,total_seat,type)"
+		sqlQquery = "INSERT INTO "+this.table+"(name,code,\"totalSeats\",type)"
 				+ " VALUES('"+this.name+"','"+this.code+"','"+this.totalSeats+"','"+this.type+"')";
 					
 		try {

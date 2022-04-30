@@ -1,60 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*,com.project.*,AllLayout.*" %>
+<%
+Long id=((Long)request.getAttribute("bookedId"));
+Booking b=new Booking();
+b.findByBookingId(id);
+System.out.println(b.journeyDate);
+User u=new User(b.userId);
+Journey j =new Journey(b.destinationId);
+
+%>
 <div class="ticket_print_section">
 	<div class="rs_shadow single_ticket" style="background-image: url('images/ticket_bg.jpg');">
 		<div class="ticket_header">
-			<h2>Bangladesh Railway Ticket</h2>
+			<h2><%= j.fromLocation %>  Airport</h2>
 		</div>
 		<div class="ticket_inner">
 			<div class="customer_part">
 				<h4>
 					<strong>Name of passenger</strong>
-					Md Rukon Shekh <%= request.getAttribute("ticket_id") %>
+					<%=  u.name %>
 				</h4>
 
 				<div class="ticket_col_1">
 					<table>
 						<tr>
 							<td>
-								<strong>Train Name</strong>
-								<span>Tista</span>
+								<strong>Flight id</strong>
+								<span><%=  b.flightId %></span>
 								<strong>From</strong>
-								<span>Dhaka</span>
+								<span><%=  j.fromLocation %></span>
 								<strong>To</strong>
-								<span>Jamalpur</span>
+								<span><%=  j.toLocation %></span>
 							</td>
-							<td class="wd_100px text_center">
-								<strong>Train No</strong>
-								Tista
-							</td>
+							
 							<td class="wd_100px text_center">
 								<strong>Journey Date</strong>
-								10/20/205
+								<%=  b.journeyDate %>
 							</td>
-							<td class="wd_100px text_center">
-								<strong>Time</strong>
-								20AM
-							</td>
+							
 						</tr>
 					</table>
 					<table>
 						<tr>
 							<td>
-								<strong>Class/Coach</strong>
-								<span>AC</span>
+								<strong>Class</strong>
+								<span><%=  b.type %></span>
 							</td>
 							<td  class="wd_100px text_center">
-								<strong>Seat</strong>
-								305
+								<strong>Seat Number</strong>
+								<%=  b.seatNumbers %>
 							</td>
 							<td  class="text_center">
-								<strong>Issue Date & Time</strong>
-								10/20/205
+								<strong>Booking date </strong>
+								<%=  b.bookingDate %>
 							</td>
 							<td  class="wd_100px text_center">
-								<strong>Fare</strong>
-								350 Tk
+								<strong>Price</strong>
+								<%=  j.price %>
 							</td>
 							<td width="90"  class="text_center">
 								<img class="qr_code" src="images/qr.png" alt="">
@@ -66,35 +69,32 @@
 			<div class="company_part">
 				<h4>
 					<strong>Name of passenger</strong>
-					Md Rukon Shekh
+					<%=  u.name %>
 				</h4>
-				<strong>Train Name</strong>
-				<span>Tista</span>
+				<strong>Flight Id</strong>
+				<span><%= b.flightId %></span>
 				<strong>Journey</strong>
-				<span>Dhaka To Jamalpur</span>
+				<span><%=  j.fromLocation %> To <%=  j.toLocation %></span>
 				<table>
 					<tr>
 						<td>
-							<strong>Seat</strong>
-							Tista
+							<strong>Seat Number</strong>
+							<%=  b.seatNumbers %>
 						</td>
 						<td>
-							<strong>Date</strong>
-							1/25/25
+							<strong>Date and Time</strong>
+							<%=  b.journeyDate %>
 						</td>
-						<td>
-							<strong>Time</strong>
-							70:30AM
-						</td>
+						
 					</tr>
 					<tr>
 						<td>
-							<strong>Fare</strong>
-							150Tk
+							<strong>Price</strong>
+							<%=  j.price %>
 						</td>
 						<td>
-							<strong>Issue Date</strong>
-							1/25/25
+							<strong>Booking Date</strong>
+							<%=  b.bookingDate %>
 						</td>
 						
 						<td>

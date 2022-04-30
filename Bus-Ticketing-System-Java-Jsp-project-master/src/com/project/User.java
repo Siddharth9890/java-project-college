@@ -94,8 +94,21 @@ public class User implements DatabaseModel {
 
     @Override
     public int Update() {
-        // TODO Auto-generated method stub
-        return 0;
+    	int returnData = 0;
+        String sqlQuery = "UPDATE " + this.GetTableName()
+        + " SET name='"+this.name+"', password='"+this.password+"', address='"+this.address+"', role='"+this.role+
+        "' WHERE email='"+this.email+"'";
+        System.out.println(sqlQuery);
+        try {
+            this.db.statement.execute(sqlQuery);
+            returnData=1;
+        } catch (SQLException e) {
+            returnData=0;
+            e.printStackTrace();
+        }
+
+        return returnData;
+        
     }
 
     @Override

@@ -39,12 +39,12 @@ User user = new User(userId);
 		<h2 class="box_title">Successful Purchase Information</h2>
 		<table class="table table-bordered">
 			<tr>
-				<td>Train Name</td>
-				<td>Coach/Class</td>
+				<td>Flight Name</td>
+				<td>Class</td>
 				<td>Purchase Date</td>
 				<td>Journey Date</td>
-				<td>Station From</td>
-				<td>Station To</td>
+				<td>From</td>
+				<td>To</td>
 				<td>Total Seat</td>
 				<td>Option</td>
 			</tr>

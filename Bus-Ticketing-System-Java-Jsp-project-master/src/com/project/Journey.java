@@ -107,8 +107,8 @@ public class Journey implements DatabaseModel {
 	}
 	
 	private int InsertNew() {
-		String sqlQury = "INSERT INTO "+this.GetTableName()+" (station_from,station_to,train_id,time,status,fare,seat_range,type) "
-				+ " VALUES('"+this.fromLocation+"','"+this.toLocation+"','"+this.flightId+"','"+departureTime+"','"+status+"','"+price+"','"+"','"+seatRange+"','"+"')";
+		String sqlQury = "INSERT INTO "+this.GetTableName()+" (\"fromLocation\",\"toLocation\",\"flightId\",\"departureTime\",status,price,\"seatRange\") "
+				+ " VALUES('"+this.fromLocation+"','"+this.toLocation+"','"+this.flightId+"','"+departureTime+"','"+status+"','"+price+"','"+"','"+seatRange+"')";
 		try {
 			return this.db.statement.executeUpdate(sqlQury,Statement.NO_GENERATED_KEYS);
 		} catch (SQLException e) {

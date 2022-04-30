@@ -6,7 +6,7 @@
 	<footer class="footer_section">
 		<div class="container">
 			<div class="footer_inner text-center">
-				Developed by Md Rukon Shekh
+				Developed by Group 19
 			</div>
 		</div>
 	</footer>

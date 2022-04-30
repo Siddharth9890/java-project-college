@@ -30,14 +30,14 @@ if(session.getAttribute("isUserLogin") != null)
   			<div class="main_nav">
   				<ul class="nav nav-pills pull-left">
   					<% if(isLogin){ 
-  						String userId = (String) session.getAttribute("user_id");
+  						String userId1 = (String) session.getAttribute("user_id");
   						
-  						User user = new User(userId);
-  						if(user.role.equals("ADMIN")){
+  						User user1 = new User(userId1);
+  						if(user1.role.equals("ADMIN")){
   							%>
   							<li  class="nav-item"><a href="" class="nav-link">Dashboard</a></li>
-							<li  class="nav-item"><a href="<%= Helper.baseUrl %>TrainList.jsp" class="nav-link">Trains</a></li>
-							<li  class="nav-item"><a href="<%= Helper.baseUrl %>StationList.jsp" class="nav-link">Stations</a></li>
+							<li  class="nav-item"><a href="<%= Helper.baseUrl %>FlightList.jsp" class="nav-link">Trains</a></li>
+							<li  class="nav-item"><a href="<%= Helper.baseUrl %>AirportsList.jsp" class="nav-link">Stations</a></li>
 							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Destinations.jsp" class="nav-link">Destinations</a></li>
 							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout.jsp" class="nav-link">Logout</a></li>
   							<%
@@ -45,7 +45,8 @@ if(session.getAttribute("isUserLogin") != null)
   						else{
   							%>
   							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Dashboard.jsp" class="nav-link">Dashboard</a></li>
-  							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Purchase.jsp" class="nav-link">Purses Ticket</a></li>
+  							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Purchase.jsp" class="nav-link">Purchases Ticket</a></li>
+  							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Update.jsp" class="nav-link">Update profile</a></li>
   							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout.jsp" class="nav-link">Logout</a></li>
   							
   						<%

@@ -22,18 +22,18 @@ if(stationTo != null || stationFrom != null){
 
 <%@ include file="header.jsp" %>
 <form class="ticket_selecting_form" action="<%= Helper.baseUrl %>FindTicket.jsp">
-	<h2 class="title">  <span>Train Route Showing For ::</span> <%= stationFrom %> to  <%= stationTo%> <span>:: Journey Date -</span>
+	<h2 class="title">  <span>Flight Route Showing For ::</span> <%= stationFrom %> to  <%= stationTo%> <span>:: Journey Date: <%= journey_date%></span>
 	<table class="table rs_shadow">
 					
 		<tr>
 			<th>Serial</th>
-			<th>Train No</th>
-			<th>Train Name</th>
+			<th>Flight No</th>
+			<th>Flight Name</th>
 			<th>Class</th>
 			<th>Departure Time</th>
 			<th>Remaining Seats</th>
 			<th>Status</th>
-			<th>Unit Fare</th>
+			<th>Price</th>
 			<th>Number Of Seat</th>
 			<th>Selection</th>
 		</tr>

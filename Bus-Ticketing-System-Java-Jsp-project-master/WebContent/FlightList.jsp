@@ -15,7 +15,7 @@ Flights trn = new Flights();
 	Iterator trnIt = trainlist.iterator();
 %>
 <div class="text-right">
-	<a class="btn btn-success" href="Add.jsp">Create Train</a>
+	<a class="btn btn-success" href="AddFlight.jsp">Create Train</a>
 </div>
 <br>
 <div class="box successfully_purschase_ticket">
