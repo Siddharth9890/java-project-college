@@ -35,10 +35,9 @@ if(session.getAttribute("isUserLogin") != null)
   						User user1 = new User(userId1);
   						if(user1.role.equals("ADMIN")){
   							%>
-  							<li  class="nav-item"><a href="" class="nav-link">Dashboard</a></li>
-							<li  class="nav-item"><a href="<%= Helper.baseUrl %>FlightList.jsp" class="nav-link">Trains</a></li>
-							<li  class="nav-item"><a href="<%= Helper.baseUrl %>AirportsList.jsp" class="nav-link">Stations</a></li>
-							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Destinations.jsp" class="nav-link">Destinations</a></li>
+  							<li  class="nav-item"><a href="<%= Helper.baseUrl %>Dashboard.jsp" class="nav-link">Dashboard</a></li>
+							<li  class="nav-item"><a href="<%= Helper.baseUrl %>FlightList.jsp" class="nav-link">Flights</a></li>
+							<li  class="nav-item"><a href="<%= Helper.baseUrl %>AirportsList.jsp" class="nav-link">Airports</a></li>
 							<li class="nav-item"><a href="<%= Helper.baseUrl %>Logout.jsp" class="nav-link">Logout</a></li>
   							<%
   						}

@@ -11,6 +11,14 @@ if(session.getAttribute("user_id") != null){
 	userId = (String) session.getAttribute("user_id");
 }
 User user = new User(userId);
+
+// delete the ticket if the paramenter is delete
+if(request.getParameter("delete") != null){
+	int bookingId = Integer.parseInt((String) request.getParameter("delete"));
+	Booking b=new Booking();
+	b.delete(bookingId);
+}
+
 %>
 <div class="dashboard">
 	<div class="box personal_info">
@@ -67,7 +75,7 @@ User user = new User(userId);
 					<td><%= stationFromTemp %></td>
 					<td><%= stationToTemp%></td>
 					<td><%= bookedTicket.getString("numberOfSeat") %></td>
-					<td><a class="btn btn-success btn-sm">Cancel ticket</a></td>
+					<td><a href="?delete=<%= bookedTicket.getString("id") %>" class="btn btn-sm btn-danger">Cancel ticket</a></td>
 					
 				</tr>
 				<%

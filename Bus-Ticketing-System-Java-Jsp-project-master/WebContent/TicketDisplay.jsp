@@ -38,18 +38,18 @@ if(stationTo != null || stationFrom != null){
 			<th>Selection</th>
 		</tr>
 		<% for(int i =0; i<trains.size(); i++){ 
-			HashMap<String,String> tempTrain= trains.get(i);
+			HashMap<String,String> tempFlight = trains.get(i);
 		
 		%>
 		<tr>
 			<td><%= i+1 %></td>
-			<td><%= tempTrain.get("code") %></td>
-			<td><%= tempTrain.get("name") %></td>
-			<td><%= tempTrain.get("type") %></td>
-			<td><%= tempTrain.get("departureTime") %></td>
-			<td><%= tempTrain.get("totalSeats") %></td>
-			<td><%= tempTrain.get("status") %></td>
-			<td><%= tempTrain.get("price")+" INR"  %></td>
+			<td><%= tempFlight.get("code") %></td>
+			<td><%= tempFlight.get("name") %></td>
+			<td><%= tempFlight.get("type") %></td>
+			<td><%= tempFlight.get("departureTime") %></td>
+			<td><%= tempFlight.get("totalSeats") %></td>
+			<td><%= tempFlight.get("status") %></td>
+			<td><%= tempFlight.get("price")+" INR"  %></td>
 			<td>
 				<select name="total_seat"  class="form-control total_seat_select">
 					    <option value="1">01</option>
@@ -59,7 +59,7 @@ if(stationTo != null || stationFrom != null){
 				</select>
 			</td>
 			<td>
-				<a href="javascript:;" class="btn btn-success rs_search_ticket" data-date="<%= journey_date %>" data-destination="<%= tempTrain.get("id") %>">Search Ticket</a>
+				<a href="javascript:;" class="btn btn-success rs_search_ticket" data-date="<%= journey_date %>" data-destination="<%= tempFlight.get("id") %>">Search Ticket</a>
 			</td>
 		</tr>
 	<% } %>

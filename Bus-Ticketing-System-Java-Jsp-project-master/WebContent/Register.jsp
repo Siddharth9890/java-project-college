@@ -14,6 +14,7 @@ if(request.getParameter("submit") != null){
 	user.role="USER";
 	long userId=0;
 	message = user.CheckRegisValidation();
+	// basic checks
 	if(message == null){
 		if(!user.email.contains("@")){
 			message = "Email is invalid.";
@@ -56,7 +57,7 @@ if(request.getParameter("submit") != null){
 						Personal Information
 					</h3>
 					<div class="input-group">
-						<label>Passenger Name*</label>
+						<label> Name*</label>
 						<input type="text" name="name" class="form-controller">
 					</div>
 					<div class="input-group">

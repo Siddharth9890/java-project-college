@@ -2,10 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*,com.project.*,AllLayout.*" %>
 <%
+// get the booked id and search the details of the user and journey to print in ticket format
 Long id=((Long)request.getAttribute("bookedId"));
 Booking b=new Booking();
 b.findByBookingId(id);
-System.out.println(b.journeyDate);
+
 User u=new User(b.userId);
 Journey j =new Journey(b.destinationId);
 

@@ -7,28 +7,37 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 
-import com.mysql.*;
 
 public class User implements DatabaseModel {
     // these local variables map to columns in database
     public String name, email, phone, password, role, address,id;
     public Database db;
     // table name is users
-    String dbTable = "users";
+    String tableName = "users";
 
+//    default constructor to initialize values
     public User() {
         this.name = this.email = this.phone = this.password = this.role = this.address =this.id= "";
         this.db = new Database();
     }
 
+//    parameterized constructor to get the user takes argId as param
+    /***
+     * 
+     * @param argId
+     */
     public User(String argId) {
         this.name = this.email = this.phone = this.password = this.role = this.address =this.id= "";
         this.db = new Database();
         this.getUser(argId);
     }
 
+//    get user method takes id as param
+    /***
+     * 
+     * @param id
+     */
     public void getUser(String id) {
         String sqlQuery = "SELECT * FROM " + this.GetTableName() + " WHERE id='" + id + "'";
         try {
@@ -49,6 +58,12 @@ public class User implements DatabaseModel {
         }
     }
 
+//    check whether user exists or not using email or phone
+    /***
+     * 
+     * @param phoneOrEmail
+     * @return
+     */
     public boolean checkUserExistsOrNot(String phoneOrEmail) {
         boolean isExist = false;
         String sqlQuery = "SELECT * FROM " + this.GetTableName() + " WHERE phone = '" + phoneOrEmail
@@ -64,100 +79,105 @@ public class User implements DatabaseModel {
         return isExist;
     }
 
+//    takes email and password and returns  user id
+    /***
+     * 
+     * @param email
+     * @param password
+     * @return
+     */
     public long login(String email, String password) {
-        long returnData = 0;
+        long userId = 0;
         String sqlQuery = "SELECT id from " + this.GetTableName() + " WHERE email='" + email + "' AND password='"
                 + password + "'";
         try {
             ResultSet result = (ResultSet) this.db.statement.executeQuery(sqlQuery);
             if (result.next()) {
-                returnData = Long.parseLong(result.getString("id"));
+                userId = Long.parseLong(result.getString("id"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        return returnData;
+        return userId;
     }
 
+    
+    /***
+     * 
+     * @param sessionArg
+     */
     public void SetUserSession(HttpSession sessionArg) {
     	
         sessionArg.setAttribute("user_id", this.id);
     }
 
+    
     @Override
     public int Save() {
-        String sqlQuery = "INSERT";
         return 0;
     }
 
+//    updates the user password,address,name and returns userId
     @Override
     public int Update() {
-    	int returnData = 0;
+    	int userId = 0;
         String sqlQuery = "UPDATE " + this.GetTableName()
         + " SET name='"+this.name+"', password='"+this.password+"', address='"+this.address+"', role='"+this.role+
         "' WHERE email='"+this.email+"'";
-        System.out.println(sqlQuery);
         try {
             this.db.statement.execute(sqlQuery);
-            returnData=1;
+            userId=1;
         } catch (SQLException e) {
-            returnData=0;
+            userId=0;
             e.printStackTrace();
         }
 
-        return returnData;
+        return userId;
         
     }
 
     @Override
-    public void Delete() {
-        // TODO Auto-generated method stub
-
-    }
+    public void Delete() {}
 
     @Override
     public String GetTableName() {
-        // TODO Auto-generated method stub
-        return this.dbTable;
+        return this.tableName;
     }
 
     
-
+//    register new user and returns the user Id
     public long registerNewUser() {
-        long lastUserId = 0;
+        long userId = 0;
         if (this.checkUserExistsOrNot(email) || this.checkUserExistsOrNot(phone)) {
-            return lastUserId;
+            return userId;
         }
-        
         String sqlQquery = "INSERT INTO " + this.GetTableName()
                 + "(name,email,phone,password,address,role) "
                 + " VALUES('" + this.name + "','" + this.email + "','" + this.phone + "','" + this.password + "','"
                 + this.address + "','" + this.role + "')";
-
         try {
-        	lastUserId = this.db.statement.executeUpdate(sqlQquery,Statement.RETURN_GENERATED_KEYS);
-        	
-
+        	userId = this.db.statement.executeUpdate(sqlQquery,Statement.RETURN_GENERATED_KEYS);
         } catch (Exception e) {
-            System.out.println("User.InsertNew: " + e.getMessage());
+        	e.printStackTrace();
         }
-
-        return lastUserId;
+        return userId;
     }
+    
+//    performs basic null checks 
     public String CheckRegisValidation() {
-		String msmessage = null;
+		String message = null;
 		if(this.name.equals(null) || this.name.equals("")) {
-			msmessage = "User Full Name Required!";
+			message = "User  Name Required!";
 		}else if(this.email.equals(null) || this.email.equals("")) {
-			msmessage = "Email is Required!";
+			message = "Email is Required!";
 		}else if(this.password.equals(null) || this.password.equals("")) {
-			msmessage = "Password is Required!";
+			message = "Password is Required!";
 		}else if(this.phone.equals(null) || this.phone.equals("")) {
-			msmessage = "Phone is Required!";
+			message = "Phone is Required!";
 		}
-		return msmessage;
+		return message;
 	}
     
 

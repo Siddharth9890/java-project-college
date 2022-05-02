@@ -9,14 +9,23 @@ import java.util.HashMap;
 import TicketSystemInterface.DatabaseModel;
 
 public class Journey implements DatabaseModel {
-	private String table_name = "journeys";
+	// table name is journeys
+	private String tableName = "journeys";
+//	these local variables map to columns in database
 	public String id,fromLocation,toLocation,flightId,departureTime,status,price,seatRange;
 	public Database db;
+	
+//	default constructor to initialize values
 	public Journey() {
 		id=fromLocation=toLocation=flightId=departureTime=status=price=seatRange="";
 		db = new Database();
 	}
 
+//	parameterized constructor to get the journey takes argId as param
+	/***
+	 * 
+	 * @param argId
+	 */
 	public Journey(String argId) {
 		db = new Database();
 		String sql = "SELECT * FROM "+this.GetTableName()+" WHERE id = '"+argId+"'";
@@ -41,44 +50,48 @@ public class Journey implements DatabaseModel {
 	
 	
 	
-	public ArrayList<HashMap<String,String>> getAll(String stationFrom ,String trainId){
-		 ArrayList<HashMap<String,String>> list = new  ArrayList<HashMap<String,String>>();
-		 String queryString = null;
-		 if(trainId == null) {
-			 queryString = "SELECT * FROM "+this.GetTableName() + " WHERE station_from ='"+stationFrom+"'"; 
-		 }else {
-			 queryString = "SELECT * FROM "+this.GetTableName() + " WHERE station_from ='"+stationFrom+"' AND train_id = '"+trainId+"'";
-		 }
-		 
-		 try {
-			ResultSet result = this.db.statement.executeQuery(queryString);
-			
-			while(result.next()) {
-				HashMap<String,String> tempData = new HashMap<String,String>();
-				tempData.put("fromLocation", result.getString("fromLocation"));
-				tempData.put("id", result.getString("id"));
-				tempData.put("toLocation", result.getString("toLocation"));
-				tempData.put("flightId", result.getString("flightId"));
-				tempData.put("departureTime", result.getString("departureTime"));
-				tempData.put("status", result.getString("status"));
-				tempData.put("price", result.getString("price"));
-				tempData.put("seatRange", result.getString("seatRange"));
-				list.add(tempData);
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 return list;
-	}
-	public ArrayList<HashMap<String,String>> getAll(String stationFrom){
-		return this.getAll(stationFrom,null);
-	}
+//	public ArrayList<HashMap<String,String>> getAll(String stationFrom ,String trainId){
+//		 ArrayList<HashMap<String,String>> list = new  ArrayList<HashMap<String,String>>();
+//		 String queryString = null;
+//		 if(trainId == null) {
+//			 queryString = "SELECT * FROM "+this.GetTableName() + " WHERE station_from ='"+stationFrom+"'"; 
+//		 }else {
+//			 queryString = "SELECT * FROM "+this.GetTableName() + " WHERE station_from ='"+stationFrom+"' AND train_id = '"+trainId+"'";
+//		 }
+//		 
+//		 try {
+//			ResultSet result = this.db.statement.executeQuery(queryString);
+//			
+//			while(result.next()) {
+//				HashMap<String,String> tempData = new HashMap<String,String>();
+//				tempData.put("fromLocation", result.getString("fromLocation"));
+//				tempData.put("id", result.getString("id"));
+//				tempData.put("toLocation", result.getString("toLocation"));
+//				tempData.put("flightId", result.getString("flightId"));
+//				tempData.put("departureTime", result.getString("departureTime"));
+//				tempData.put("status", result.getString("status"));
+//				tempData.put("price", result.getString("price"));
+//				tempData.put("seatRange", result.getString("seatRange"));
+//				list.add(tempData);
+//				
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		 return list;
+//	}
+	
+	
+//	public ArrayList<HashMap<String,String>> getAll(String stationFrom){
+//		return this.getAll(stationFrom,null);
+//	}
+	
+	
 	@Override
 	public int Save() {
-		int destinationId = 0;
-		destinationId = this.InsertNew();
+//		int destinationId = 0;
+//		destinationId = this.InsertNew();
 		return 0;
 	}
 
@@ -88,6 +101,7 @@ public class Journey implements DatabaseModel {
 		return 0;
 	}
 
+//	delete journey based on id
 	@Override
 	public void Delete() {
 		String querySting = "DELETE FROM "+this.GetTableName()+ " WHERE id='"+this.id+"'";
@@ -103,9 +117,10 @@ public class Journey implements DatabaseModel {
 	@Override
 	public String GetTableName() {
 		// TODO Auto-generated method stub
-		return this.table_name;
+		return this.tableName;
 	}
 	
+//	insert a new journey into database
 	private int InsertNew() {
 		String sqlQury = "INSERT INTO "+this.GetTableName()+" (\"fromLocation\",\"toLocation\",\"flightId\",\"departureTime\",status,price,\"seatRange\") "
 				+ " VALUES('"+this.fromLocation+"','"+this.toLocation+"','"+this.flightId+"','"+departureTime+"','"+status+"','"+price+"','"+"','"+seatRange+"')";

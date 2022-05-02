@@ -9,17 +9,27 @@ import java.util.HashMap;
 import AllLayout.Flight;
 
 public class Flights {
+//	these local variables map to columns in database
 	public String name,id,code,type="NORMAL",totalSeats="";
-	String table = "flight";
+	// table name is journeys
+	String tableName = "flight";
 	Database db;
+	
+//	default constructor to initialize values
 	public Flights(){
 		this.totalSeats=this.name=this.id=this.code = "";
 		db = new Database();
 		
 	}
+	
+//	parameterized constructor to get the journey takes argId as param
+	/***
+	 * 
+	 * @param trnId
+	 */
 	public Flights(String trnId) {
 		db = new Database();
-		String sql = "SELECT * FROM "+this.table+" WHERE id='"+trnId+"'";
+		String sql = "SELECT * FROM "+this.tableName+" WHERE id='"+trnId+"'";
 		try {
 			ResultSet result = this.db.statement.executeQuery(sql);
 			while(result.next()) {
@@ -34,10 +44,15 @@ public class Flights {
 			e.printStackTrace();
 		}
 	}
+	
+//	get flight details from code and not id
+	/***
+	 * 
+	 * @param code
+	 */
 	public void findFlight(String code) {
 		db = new Database();
-		String sql = "SELECT * FROM "+this.table+" WHERE code='"+code+"'";
-		
+		String sql = "SELECT * FROM "+this.tableName+" WHERE code='"+code+"'";
 		try {
 			ResultSet result = this.db.statement.executeQuery(sql);
 			while(result.next()) {
@@ -56,9 +71,10 @@ public class Flights {
 		}
 	}
 	
+//	get all flights
 	public ArrayList<Flight> getAll() {
 		ArrayList<Flight> trains = new ArrayList<Flight>();
-		String sqlQuery = "SELECT * FROM " + this.table;
+		String sqlQuery = "SELECT * FROM " + this.tableName;
 		try {
 			ResultSet result = db.statement.executeQuery(sqlQuery);
 			while(result.next()) {
@@ -76,24 +92,23 @@ public class Flights {
 		}
 		return trains;
 	}
+	
 	public void Save() {
-		
-			this.CreateNew();
-		
-		
+			this.CreateNew();	
 	}
+//	delete the flight
 	public void Delete (String trnId) {
-		String sql = "DELETE FROM "+this.table+" WHERE id = '"+trnId+"'";
+		String sql = "DELETE FROM "+this.tableName+" WHERE id = '"+trnId+"'";
 		try {
 			this.db.statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
-	/*Search Destinations trains*/
-	
+//	search for flight and journey in common using inner joins
 	public ArrayList<HashMap<String,String>> SearchTrainFromTo(String from,String to,String coach){
 		ArrayList<HashMap<String,String>> trains = new ArrayList<HashMap<String,String>>();
 		String sql = null;
@@ -115,10 +130,8 @@ public class Flights {
 		}
 		
 		try {
-			System.out.println(sql);
 			ResultSet result = this.db.statement.executeQuery(sql);
 			while(result.next()) {
-				System.out.println(result.getString("name"));
 				HashMap<String,String> tempTrain = new HashMap<String,String>();
 				tempTrain.put("name", result.getString("name"));
 				tempTrain.put("id", result.getString("id"));
@@ -140,9 +153,10 @@ public class Flights {
 		return trains;
 	}
 	
+//	create a new flight 
 	private int CreateNew() {
 		String sqlQquery = "";
-		sqlQquery = "INSERT INTO "+this.table+"(name,code,\"totalSeats\",type)"
+		sqlQquery = "INSERT INTO "+this.tableName+"(name,code,\"totalSeats\",type)"
 				+ " VALUES('"+this.name+"','"+this.code+"','"+this.totalSeats+"','"+this.type+"')";
 					
 		try {

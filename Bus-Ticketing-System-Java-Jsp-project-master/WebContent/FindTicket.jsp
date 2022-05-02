@@ -6,16 +6,21 @@
 if(session.getAttribute("isUserLogin") == null){
 	response.sendRedirect("Login.jsp");
 }
-String totalSeat = request.getParameter("totalSeat");
+	// get details from previous page
+	String totalSeat = request.getParameter("totalSeat");
 	String date = request.getParameter("date");
 	String destination = request.getParameter("destination");
 	String actionType = request.getParameter("actionType");
+	
 	Double bankCharge = 0.0;
 	String userId = (String) session.getAttribute("user_id");
+	
+	// if any of paramter is not null then only search for destination
 	if(totalSeat != null && date != null && destination != null && actionType.equals("search")){
 		Booking booking = new Booking();
 		HashMap<String,String> tickDetails = booking.Find(destination, date, totalSeat);
-		
+	
+		// if seats are available then proceed
 		if(tickDetails.get("is_avaiable").equals("yes")){
 	Double totalamount = 0.0;
 	String flightId=tickDetails.get("flightId");
@@ -58,10 +63,8 @@ String totalSeat = request.getParameter("totalSeat");
 		</div>
 		<%
 		} 
-				
+				// else show error
 			}else{
-				String tickId = "10";
-				request.setAttribute("ticket_id", "10");
 				String flightId = request.getParameter("flightId");
 				String journeyId = request.getParameter("journeyId");
 				String userId1=request.getParameter("userId");
@@ -91,8 +94,7 @@ String totalSeat = request.getParameter("totalSeat");
 			</div>
 			<%
 		}else{
-			//needed flight id ,journey id,user id ,date,totals eat
-			
+				// do booking
 			 long bookedId = booking.BookNow(journey,flight,userId1, date, totalSeat);
 			
 			request.setAttribute("bookedId", bookedId);

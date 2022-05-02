@@ -3,15 +3,15 @@
 <%@ page import="com.project.Helper,com.project.User,com.project.Flights,java.util.*" %>
 <%
 String message = "";
-	if(request.getParameter("createTrain") != null){
-		Flights trn = new Flights();
-		trn.name = (String) request.getParameter("name");
-		trn.code = (String) request.getParameter("code");
-		trn.type = (String) request.getParameter("coach");
+	if(request.getParameter("createFlight") != null){
+		Flights flight = new Flights();
+		flight.name = (String) request.getParameter("name");
+		flight.code = (String) request.getParameter("code");
+		flight.type = (String) request.getParameter("coach");
 		String totalSeat = (String) request.getParameter("totalseat");
-		trn.totalSeats = totalSeat;
-		trn.Save();
-		message = "Train Created";
+		flight.totalSeats = totalSeat;
+		flight.Save();
+		message = "Flight Created";
 		
 	}
 %>
@@ -26,7 +26,7 @@ String message = "";
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 				<div class="rs_form_box">
 					<h3 class="form_section_title">
-						Train Informations
+						Flight Informations
 					</h3>
 					<div class="input-group">
 						<label>Name</label>
@@ -45,7 +45,7 @@ String message = "";
 							<label>Class :</label>
 							<select class="form-control" name="coach" >
 							<%
-							HashMap<String,String> coach = Helper.TrainsCoach();
+							HashMap<String,String> coach = Helper.FlightsCoach();
 							for(Map.Entry<String, String> temp:coach.entrySet()){
 								%>
 								<option value="<%= temp.getKey() %>"><%= temp.getValue() %></option>
@@ -60,7 +60,7 @@ String message = "";
 			</div>
 			<div class="col-xs-12 col-sm-12 text-center">
 				<div class="rs_btn_group">
-					<button class="btn btn-default pull-left" name="createTrain" value="submit" type="submit">Save</button>
+					<button class="btn btn-default pull-left" name="createFlight" value="submit" type="submit">Save</button>
 				</div>
 			</div>
 		</div>

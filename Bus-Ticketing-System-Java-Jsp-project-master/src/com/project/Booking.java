@@ -11,16 +11,22 @@ import AllLayout.Flight;
 import TicketSystemInterface.DatabaseModel;
 
 public class Booking implements DatabaseModel{
+	// table name is booking
 	private String tableName = "booking";
+//	these local variables map to columns in database
 	public String id, destinationId, bookingDate, journeyDate, flightId, seatNumbers, userId, numberOfSeat, paymentStatus, status, type;
 	Database db;
+	
+//	default constructor to initialize values	
 	public Booking() {
 		db = new Database();
 	}
-	public Booking(int argId) {
-		
-	}
 	
+//	find the booking by id
+	/***
+	 * 
+	 * @param id
+	 */
 	public void findByBookingId(Long id) {
 		String sql = "SELECT * FROM "+this.tableName+ " WHERE id = "+id;
 		try {
@@ -47,6 +53,12 @@ public class Booking implements DatabaseModel{
 		}
 	}
 	
+//	find by user id and not by booking id
+	/***
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	public ResultSet FindByUser(String userId){
 		ResultSet result = null;
 		String sql = "SELECT * FROM "+this.tableName+ " WHERE \"userId\"='"+userId+"' ORDER BY id DESC";
@@ -60,6 +72,14 @@ public class Booking implements DatabaseModel{
 		return result;
 	}
 	
+//	
+	/***
+	 * 
+	 * @param destination
+	 * @param date
+	 * @param totalSeat
+	 * @return
+	 */
 	public HashMap<String,String> Find(String destination,String date,String totalSeat){
 		HashMap<String,String> result = new HashMap<String,String>();
 		result.put("message", "Seat Is Not Available!");
@@ -71,7 +91,7 @@ public class Booking implements DatabaseModel{
 				+ " journeys.\"flightId\" = flight.code"
 				+ " WHERE journeys.id = '"+destination+"'";
 		try {
-			System.out.println(query);
+			
 			ResultSet resultset = this.db.statement.executeQuery(query);
 			while(resultset.next()) {
 				result.put("id",resultset.getString("id"));
@@ -91,12 +111,19 @@ public class Booking implements DatabaseModel{
 		}
 		return result;
 	}
-	public void SetById(int argId) {
-		
-	}
+
+//	get all the info about booking and do the booking and also we need to subtract seats as well
+	/***
+	 * 
+	 * @param journey
+	 * @param flight
+	 * @param userId
+	 * @param date
+	 * @param totalSeat
+	 * @return
+	 */
 	public long BookNow(Journey journey,Flights flight,String userId,String date,String totalSeat) {
 		long bookId = 0;
-		System.out.println(userId);
 		this.seatNumbers=(Integer.parseInt(flight.totalSeats)-Integer.parseInt(totalSeat))+"";
 		
 		this.destinationId = journey.id;
@@ -141,44 +168,54 @@ public class Booking implements DatabaseModel{
 		
 		return bookId;
 	}
-//	need to reformat the code remove the sql 
+	
+	
+//	checks for seats are available or not
+	/***
+	 * 
+	 * @param flight
+	 * @param totalSeat
+	 * @return
+	 */
 	public boolean IsAvailable(Flights flight,String totalSeat) {
 		int seatNeed = Integer.parseInt(totalSeat);
 		boolean isAvailable = true;
 		
-		String sql = "select \"totalSeats\" from flight WHERE flight.code = '"+flight.code+"' ";
-		try {
-			ResultSet result = this.db.statement.executeQuery(sql);
-			if(result.next()) {
-				System.out.println("From database"+result.getInt("totalSeats"));
-				if(result.getInt("totalSeats")-seatNeed<0)
-				{
-					isAvailable=false;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+				
+		if(Integer.parseInt(flight.totalSeats)-seatNeed<0)
+		{
+			isAvailable=false;
 		}
+			
+		
 		return isAvailable;
 	}
 	
 	@Override
-	public int Save() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int Save() {return 0;}
 	
+	@Override
+	public int Update() {return 0;}
 
 	@Override
-	public int Update() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void Delete() {
-		// TODO Auto-generated method stub
+	public void Delete() {}
+	
+//	delete the booking using booking id
+	/***
+	 * 
+	 * @param bookingId
+	 */
+	public void delete(int bookingId) {
+		String sql = "DELETE FROM "+this.tableName+" WHERE id = '"+bookingId+"'";
+		try {
+			this.db.statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Override

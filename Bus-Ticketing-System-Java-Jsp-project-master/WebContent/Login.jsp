@@ -14,7 +14,7 @@ String message = "";
 String email = null,password = null;
 long userId = 0;
 
-
+// basic checks
 if(request.getParameter("submit") != null){
 	email = request.getParameter("phone");
 	password = request.getParameter("password");
@@ -74,7 +74,7 @@ if(request.getParameter("submit") != null){
 						<input type="text" name="phone" class="form-controller">
 					</div>
 					<div class="input-group">
-						<label>Password</label>
+						<label>Password*</label>
 						<input type="password" name="password" class="form-controller">
 					</div>
 				</div>

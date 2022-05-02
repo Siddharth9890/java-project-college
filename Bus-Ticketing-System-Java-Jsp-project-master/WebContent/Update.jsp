@@ -58,7 +58,7 @@ if(request.getParameter("submit") != null){
                         Update Personal Information
                     </h3>
                     <div class="input-group">
-                        <label>Passenger Name</label>
+                        <label> Name*</label>
                         <input type="text" name="name" value=<%= user.name %> class="form-controller">
                     </div>
                     <div class="input-group">
@@ -67,12 +67,12 @@ if(request.getParameter("submit") != null){
                     </div>
 
                     <div class="input-group">
-                        <label>Change Password</label>
+                        <label>Change Password*</label>
                         <input type="password" name="password"  class="form-controller">
                     </div>
 
                     <div class="input-group">
-                        <label>Re-Enter Changed Password</label>
+                        <label>Re-Enter Changed Password*</label>
                         <input type="password" name="password_con" class="form-controller">
                     </div>
 
@@ -85,7 +85,7 @@ if(request.getParameter("submit") != null){
                         Extra information
                     </h3>
                     <div class="input-group">
-                        <label>Address</label>
+                        <label>Address*</label>
                         <textarea name="address"  class="form-controller"><%= user.address %></textarea>
                     </div>
                     <div class="input-group">

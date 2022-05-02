@@ -1,6 +1,7 @@
 package com.project;
 import java.sql.*;
 public class Database {
+//	database connection values 
 	private String hostName = "jdbc:postgresql://localhost:5432/test";
 	private String userName = "postgres";
 	private String userPassword = "demo";

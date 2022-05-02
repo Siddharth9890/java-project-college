@@ -3,16 +3,16 @@
 <%@ page import="AllLayout.*,com.project.Flights,com.project.Airports,java.util.ArrayList,java.util.Iterator" %>
 <%@ include file="header.jsp" %>
 <%
-Airports sts = new Airports();
-	if(request.getParameter("createStation") != null){
-		sts.name = (String) request.getParameter("name");
-		sts.contact = (String) request.getParameter("contact");
-		sts.address = (String) request.getParameter("address");
-		sts.Save();
+Airports airport = new Airports();
+	if(request.getParameter("createAirport") != null){
+		airport.name = (String) request.getParameter("name");
+		airport.contact = (String) request.getParameter("contact");
+		airport.address = (String) request.getParameter("address");
+		airport.Save();
 	}
 	
 	
-	ArrayList<Airport> stationList = sts.getAll();
+	ArrayList<Airport> stationList = airport.getAll();
 	Iterator stationIterator = stationList.iterator();
 %>
 
@@ -31,7 +31,7 @@ Airports sts = new Airports();
 	<div class="row">
 		<div class="col-xs-12 col-sm-4">
 			
-			<form class="register_form" action="<%=Helper.baseUrl%>StationList.jsp" method="post">
+			<form class="register_form" action="<%=Helper.baseUrl%>AirportsList.jsp" method="post">
 					<div class="rs_form_box" style="margin:15px; padding:0; border:0;">
 						<div class="input-group">
 							<label>Name</label>
@@ -47,7 +47,7 @@ Airports sts = new Airports();
 						</div>
 						<div class="text-center">
 							<div class="rs_btn_group">
-								<button class="btn btn-default pull-left" name="createStation" value="submit" type="submit">Save</button>
+								<button class="btn btn-default pull-left" name="createAirport" value="submit" type="submit">Save</button>
 							</div>
 						</div>
 					</div>

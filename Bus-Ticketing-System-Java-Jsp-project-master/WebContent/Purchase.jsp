@@ -69,7 +69,7 @@ Airports airports = new Airports();
 				<select class="form-control" name="coach" id="from_where_select" >
 				<option value="any">Any Coach</option>
 				<%
-				HashMap<String,String> coach = Helper.TrainsCoach();
+				HashMap<String,String> coach = Helper.FlightsCoach();
 				for(Map.Entry<String, String> temp:coach.entrySet()){
 					%>
 					<option value="<%= temp.getKey() %>"><%= temp.getValue() %></option>
