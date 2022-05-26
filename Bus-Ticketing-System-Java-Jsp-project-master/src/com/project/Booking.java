@@ -140,6 +140,7 @@ public class Booking implements DatabaseModel{
 		String sqlBooking = "INSERT INTO booking(\"destinationId\",\"bookingDate\",\"journeyDate\",\"flightId\",\"seatNumbers\",\"userId\",\"numberOfSeat\",\"paymentStatus\",status,type)"
 				+ " VALUES('"+this.destinationId+"','"+this.bookingDate+"','"+this.journeyDate+"','"+this.flightId+"','"+this.seatNumbers+"','"+this.userId+"','"+this.numberOfSeat+"','"+this.paymentStatus+"','"+this.status+"','"+this.type+"')";
 		String findBooking="SELECT * from booking where \"userId\"= "+this.userId+" order by id desc limit 1";
+		System.out.println(sqlBooking);
 		try {
 			
 			 this.db.statement.executeQuery(sql);

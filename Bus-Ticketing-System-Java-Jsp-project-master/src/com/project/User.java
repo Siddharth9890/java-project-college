@@ -157,8 +157,15 @@ public class User implements DatabaseModel {
                 + "(name,email,phone,password,address,role) "
                 + " VALUES('" + this.name + "','" + this.email + "','" + this.phone + "','" + this.password + "','"
                 + this.address + "','" + this.role + "')";
+        System.out.println(sqlQquery);
         try {
-        	userId = this.db.statement.executeUpdate(sqlQquery,Statement.RETURN_GENERATED_KEYS);
+        	this.db.statement.execute(sqlQquery);
+        	String sqlQuery = "SELECT id from " + this.GetTableName() + " WHERE email='" + email+"'";
+        	ResultSet result = (ResultSet) this.db.statement.executeQuery(sqlQuery);
+            if (result.next()) {
+                userId = Long.parseLong(result.getString("id"));
+            }
+        	System.out.println(userId);
         } catch (Exception e) {
         	e.printStackTrace();
         }

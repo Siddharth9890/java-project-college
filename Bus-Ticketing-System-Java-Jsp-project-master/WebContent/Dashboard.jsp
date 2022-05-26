@@ -9,6 +9,7 @@ if(session.getAttribute("isUserLogin") == null){
 }
 if(session.getAttribute("user_id") != null){
 	userId = (String) session.getAttribute("user_id");
+	System.out.println(userId);
 }
 User user = new User(userId);
 
@@ -59,7 +60,7 @@ if(request.getParameter("delete") != null){
 			<%
 			Booking booking = new Booking();
 			ResultSet bookedTicket = booking.FindByUser(userId);
-			
+			if(bookedTicket!=null){
 			while(bookedTicket.next()){
 				
 				Journey journey = new Journey(bookedTicket.getString("destinationId"));
@@ -79,6 +80,7 @@ if(request.getParameter("delete") != null){
 					
 				</tr>
 				<%
+			}
 			}
 			%>
 			
